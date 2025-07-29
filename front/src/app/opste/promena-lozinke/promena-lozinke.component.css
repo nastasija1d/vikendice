@@ -1,0 +1,130 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: auto;
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+}
+
+.form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 400px;
+  padding: 0px 30px 50px 30px;
+  border-radius: 20px;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+  color: #00bfff;
+  text-align: center;
+  justify-content: center;
+}
+
+/* GRUPISANJE POLJA PO DVA U JEDAN RED */
+.flex {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.flex label {
+  flex: 1;
+}
+
+.form label {
+  position: relative;
+  width: 100%;
+}
+
+.form label .input,
+.form label select {
+  background-color: #333;
+  color: #fff;
+  width: 100%;
+  padding: 10px 12px;
+  outline: none;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* LEPO PORAVNAN TEKST */
+.form label .input + span,
+.form label select + span {
+  color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 12px;
+  top: 0px;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown + span {
+  top: 12.5px;
+  font-size: 0.9em;
+}
+
+.form label .input:focus + span,
+.form label .input:valid + span,
+.form label select:focus + span,
+.form label select:valid + span {
+  color: #00bfff;
+  top: 0px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.input {
+  font-size: medium;
+  width: 100%;
+}
+
+.submit {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transition: 0.3s ease;
+  background-color: #00bfff;
+}
+
+.submit:hover {
+  background-color: #00bfff96;
+}
+
+/* Broj bez strelica */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+
+.error {
+  color: #ff4d4d;
+  font-size: 0.75rem;
+  margin-top: 4px;
+  margin-left: 5px;
+}

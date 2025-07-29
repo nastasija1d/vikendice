@@ -1,0 +1,102 @@
+<div class="container">
+  <form class="form" novalidate>
+    <p class="title">Registracija</p>
+    
+    <div class="flex" style="justify-content: space-between;">
+      <!-- Ime -->
+      <label>
+        <input class="input" type="text" [(ngModel)]="korisnik.ime" 
+               (input)="proveriIme()" required [ngModelOptions]="{standalone: true}">
+        <span>Ime</span>
+        <div *ngIf="!imeValidno" class="error">{{ porukaIme }}</div>
+      </label>
+
+      <!-- Prezime -->
+      <label>
+        <input class="input" type="text" [(ngModel)]="korisnik.prezime" 
+               (input)="proveriPrezime()" required [ngModelOptions]="{standalone: true}">
+        <span>Prezime</span>
+        <div *ngIf="!prezimeValidno" class="error">{{ porukaPrezime }}</div>
+      </label>
+    </div>
+
+    <!-- Username -->
+    <label>
+      <input class="input" type="text" [(ngModel)]="korisnik.username" 
+          (blur)="proveriKorisnickoIme()"   required [ngModelOptions]="{standalone: true}">
+      <span>Username</span>
+      <div *ngIf="!korisnickoImeValidno" class="error">{{ porukaKorisnickoIme }}</div>
+    </label>
+
+    <!-- Lozinka -->
+    <label>
+      <input class="input" type="password" [(ngModel)]="korisnik.lozinka" 
+             (blur)="proveriLozinku()" required [ngModelOptions]="{standalone: true}">
+      <span>Lozinka</span>
+      <div *ngIf="!lozinkaValidna" class="error">{{ porukaLozinka }}</div>
+    </label>
+
+    <!-- Email -->
+    <label>
+      <input class="input" type="email" [(ngModel)]="korisnik.email" 
+             (blur)="proveriEmail()" required [ngModelOptions]="{standalone: true}">
+      <span>Email</span>
+      <div *ngIf="!emailValidno" class="error">{{ porukaEmail }}</div>
+    </label>
+
+    <!-- Adresa -->
+    <label>
+      <input class="input" type="text" [(ngModel)]="korisnik.adresa" 
+          (blur)="proveriAdresu()"   required [ngModelOptions]="{standalone: true}">
+      <span>Adresa</span>
+      <div *ngIf="!adresaValidna" class="error">{{ porukaAdresa }}</div>
+    </label>
+
+    <!-- Telefon -->
+    <label>
+      <input class="input" type="text" [(ngModel)]="korisnik.telefon" 
+          (blur)="proveriTelefon()"   required [ngModelOptions]="{standalone: true}">
+      <span>Telefon</span>
+      <div *ngIf="!telefonValidan" class="error">{{ porukaTelefon }}</div>
+    </label>
+
+    <!-- Broj kartice -->
+    <label style="position: relative;">
+      <input class="input kartica-input" type="text" [(ngModel)]="korisnik.kartica" 
+            (input)="proveriKarticu()" required [ngModelOptions]="{standalone: true}">
+      <span>Broj kartice</span>
+      <img *ngIf="karticaValidna && tipKartice" 
+          [src]="tipKartice + '.png'" 
+          alt="{{tipKartice}}" 
+          class="kartica-ikonica">
+      <div *ngIf="!karticaValidna" class="error">{{ porukaKartica }}</div>
+    </label>
+
+    <label class="upload-label" [class.file-upload-active]="slikaIzabrana">
+      <input type="file" accept="image/png, image/jpeg" (change)="proveriSliku($event)" hidden>
+      <span>{{ slikaIzabrana ? 'Slika izabrana ✔' : 'Izaberi profilnu sliku (JPG/PNG)' }}</span>
+    </label>
+    <div *ngIf="slikaPoruka" class="error">{{ slikaPoruka }}</div>
+
+    <!-- Pol i Tip -->
+    <div class="flex" style="justify-content: space-between;">
+      <label>
+        <select class="input" [(ngModel)]="korisnik.pol" required [ngModelOptions]="{standalone: true}">
+          <option value="0" selected>Muški</option>
+          <option value="1">Ženski</option>
+        </select>
+        <span>Pol</span>
+      </label>
+      
+      <label>
+        <select class="input" [(ngModel)]="korisnik.tip" required [ngModelOptions]="{standalone: true}">
+          <option value="0" selected>Vlasnik</option>
+          <option value="1">Turista</option>
+        </select>
+        <span>Tip korisnika</span>
+      </label>
+    </div>
+
+    <button class="submit" (click)="dodaj()">Potvrdi</button>
+  </form>
+</div>

@@ -1,0 +1,219 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: auto;
+  width: 100%;
+  margin: auto;
+  padding: 20px;
+}
+
+.form {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 400px;
+  padding: 0px 30px 50px 30px;
+  border-radius: 20px;
+  background-color: #1a1a1a;
+  color: #fff;
+  border: 1px solid #333;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -1px;
+  display: flex;
+  align-items: center;
+  color: #00bfff;
+  text-align: center;
+  justify-content: center;
+}
+
+/* GRUPISANJE POLJA PO DVA U JEDAN RED */
+.flex {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.flex label {
+  flex: 1;
+}
+
+.form label {
+  position: relative;
+  width: 100%;
+}
+
+.form label .input,
+.form label select {
+  background-color: #333;
+  color: #fff;
+  width: 100%;
+  padding: 10px 12px;
+  outline: none;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+/* LEPO PORAVNAN TEKST */
+.form label .input + span,
+.form label select + span {
+  color: rgba(255, 255, 255, 0.5);
+  position: absolute;
+  left: 12px;
+  top: 0px;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown + span {
+  top: 12.5px;
+  font-size: 0.9em;
+}
+
+.form label .input:focus + span,
+.form label .input:valid + span,
+.form label select:focus + span,
+.form label select:valid + span {
+  color: #00bfff;
+  top: 0px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.input {
+  font-size: medium;
+  width: 100%;
+}
+
+.submit {
+  border: none;
+  outline: none;
+  padding: 10px;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 16px;
+  transition: 0.3s ease;
+  background-color: #00bfff;
+}
+
+.submit:hover {
+  background-color: #00bfff96;
+}
+
+/* Broj bez strelica */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
+/* SELECT STIL */
+select {
+  background-color: #333;
+  color: #fff;
+  border-radius: 10px;
+  padding: 10px;
+  font-size: medium;
+  appearance: none;
+}
+
+/* Scrollbar */
+select::-webkit-scrollbar {
+  width: 8px;
+}
+
+select::-webkit-scrollbar-thumb {
+  background-color: #222;
+  border-radius: 10px;
+}
+
+select::-webkit-scrollbar-thumb:hover {
+  background-color: #333;
+}
+
+select::-webkit-scrollbar-track {
+  background-color: #555;
+  border-radius: 10px;
+}
+
+.error {
+  color: #ff4d4d;
+  font-size: 0.75rem;
+  margin-top: 4px;
+  margin-left: 5px;
+}
+
+.kartica-ikonica {
+  width: 32px;
+  height: 20px;
+  margin-left: -45px;
+  z-index: 2;
+}
+.kartica-input {
+  padding-right: 40px; /* prostor za ikonicu unutar input polja */
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.kartica-ikonica {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: auto;
+  pointer-events: none;
+}
+
+.upload-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #00bfff;
+  color: white;
+  font-weight: 300;
+  font-size: 15px;
+  border: 1px solid rgba(105, 105, 105, 0.397);
+  border-radius: 10px;
+  cursor: pointer;
+  user-select: none;
+  width: fit-content;
+}
+
+.upload-label:hover {
+  background: linear-gradient(135deg, #0080ff, #33c7ff);
+  box-shadow: 0 6px 12px rgba(0, 176, 255, 0.7);
+  border-color: #00aaff;
+}
+
+.upload-label:active {
+  background: linear-gradient(135deg, #004a8c, #0088d1);
+  box-shadow: 0 2px 6px rgba(0, 100, 180, 0.8);
+}
+
+.upload-label span {
+  pointer-events: none; /* da klik ide na label, ne na tekst */
+}
+
+.file-upload-active {
+  background-color: #333;  /* svetlo plava kad je fajl izabran */
+  border-color:#333;
+  color: white;
+}
