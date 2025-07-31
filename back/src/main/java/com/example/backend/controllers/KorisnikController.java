@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,6 +24,7 @@ public class KorisnikController {
 
     @PostMapping("/login")
     public Korisnik login(@RequestBody LoginInfo loginDTO) {
+        //System.out.println("Login attempt: " + loginDTO.getUsername() + ", " + loginDTO.getLozinka());
         Korisnik korisnik = new KorisnikRepo().login(loginDTO.getUsername(), loginDTO.getLozinka());
         if (korisnik != null) {
             return korisnik;
@@ -66,8 +68,25 @@ public class KorisnikController {
 
     @PostMapping("/promeniLozinku")
     public int promeniLozinku(@RequestBody PromenaLozinkeInfo dto) {
+        //System.out.println("Promena lozinke: " + dto.username + ", " + dto.staraLozinka + ", " + dto.novaLozinka);
         return new KorisnikRepo().promeniLozinku(dto.username, dto.staraLozinka, dto.novaLozinka);
     }
+
+    @PostMapping("/izmeniProfil")
+    public Korisnik izmeniProfil(
+        @RequestParam("username") String username,
+        @RequestParam("ime") String ime,
+        @RequestParam("prezime") String prezime,
+        @RequestParam("adresa") String adresa,
+        @RequestParam("telefon") String telefon,
+        @RequestParam("email") String email,
+        @RequestParam("kartica") String kartica,
+        @RequestParam(value = "slika", required = false) MultipartFile slika
+    ) {
+        System.out.println("Izmena profila: " + username + ", " + ime + ", " + prezime + ", " + adresa + ", " + telefon + ", " + email + ", " + kartica);
+        return new KorisnikRepo().izmeniPodatke(username, ime, prezime, adresa, telefon, email, kartica, slika);
+    }
+
 
 
     

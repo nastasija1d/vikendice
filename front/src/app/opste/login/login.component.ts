@@ -23,7 +23,7 @@ export class LoginComponent {
       if(data){
         localStorage.setItem('ulogovaniKorisnik', JSON.stringify(data));
         this.greska = '';
-        this.router.navigate(['/pocetna']);
+        this.router.navigate(['/profil']);
       }else{
         this.greska = 'Pogrešno korisničko ime ili lozinka.';
       }

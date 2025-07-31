@@ -17,16 +17,34 @@ export class KorisnikService {
   }
 
   login(username: string, lozinka: string) {
-  return this.http.post<Korisnik>(this.url + '/login', { username, lozinka });
+    return this.http.post<Korisnik>(this.url + '/login', { username, lozinka });
   }
 
   promeniLozinku(username: string, staraLozinka: string, novaLozinka: string) {
-  return this.http.post<number>(this.url + '/promeniLozinku', {
-    username: username,
-    staraLozinka: staraLozinka,
-    novaLozinka: novaLozinka
-  });
-}
+    return this.http.post<number>(this.url + '/promeniLozinku', {
+      username: username,
+      staraLozinka: staraLozinka,
+      novaLozinka: novaLozinka
+    });
+  }
+
+  izmeniKorisnika(korisnik: any, slika: File | null) {
+    const formData = new FormData();
+
+    formData.append('username', korisnik.username);
+    formData.append('ime', korisnik.ime);
+    formData.append('prezime', korisnik.prezime);
+    formData.append('adresa', korisnik.adresa);
+    formData.append('telefon', korisnik.telefon);
+    formData.append('email', korisnik.email);
+    formData.append('kartica', korisnik.kartica);
+
+    if (slika instanceof File) {
+      formData.append('slika', slika);
+    }
+
+    return this.http.post<Korisnik>(this.url + '/izmeniProfil', formData);
+  }
 
 
 }

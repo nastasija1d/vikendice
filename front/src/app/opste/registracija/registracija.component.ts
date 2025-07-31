@@ -4,6 +4,7 @@ import { KorisnikService } from '../../services/korisnik.service';
 import { CommonModule } from '@angular/common';
 import { Korisnik } from '../../models/korisnik';
 import { HttpClientModule } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registracija',
@@ -16,6 +17,7 @@ export class RegistracijaComponent {
 
   korisnik: Korisnik = new Korisnik();
   servis = inject(KorisnikService);
+  ruter = inject(Router);
 
 dodaj() {
   this.proveriIme();
@@ -47,7 +49,8 @@ dodaj() {
     this.servis.registrujKorisnika(formData).subscribe(
       (data)=>{
         if (data==1){
-          alert('Korisnik uspešno registrovan!');
+          alert('Uspesno ste poslali zahtev za registraciju');
+          this.ruter.navigate(['/login']);
         }else{
           this.emailValidno = false;
           this.porukaEmail = 'Korisnik sa tim emailom već postoji.';

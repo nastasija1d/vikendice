@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { KorisnikService } from '../../services/korisnik.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-promena-lozinke',
@@ -17,6 +18,7 @@ ponovljenaNovaLozinka: string = '';
 username: string = '';
 greska: string = '';
 servis = inject(KorisnikService);
+ruter = inject(Router);
 
 // Regex kao za registraciju:
 lozinkaRegex = /^(?=.*[A-Z])(?=.*[a-z].*[a-z].*[a-z])(?=.*\d)(?=.*[!@#$%^&*()\-_=+{}[\]|;:'",.<>/?])[A-Za-z][A-Za-z\d!@#$%^&*()\-_=+{}[\]|;:'",.<>/?]{5,9}$/;
@@ -43,7 +45,7 @@ promeniLozinku() {
   this.servis.promeniLozinku(this.username, this.staraLozinka, this.novaLozinka).subscribe(
     (data)=>{
       if (data==1){
-
+        this.ruter.navigate(['/login']);
       }else{
         this.greska = 'Uneta netacna stara lozinka!';
       }

@@ -1,0 +1,71 @@
+<div class="container">
+  <form class="form">
+    <h2 class="title">Dodaj vikendicu</h2>
+
+    <!-- Naziv -->
+    <label>
+        <input class="input" type="text" [(ngModel)]="vikendica.naziv" name="naziv" required>
+        <span>Naziv</span>
+        <div class="error" *ngIf="formSubmitted && !vikendica.naziv">Naziv je obavezan.</div>
+    </label>
+    <div class="flex">
+        <!-- Mesto -->
+        <label>
+            <input class="input" type="text" [(ngModel)]="vikendica.mesto" name="mesto" required>
+            <span>Mesto</span>
+            <div class="error" *ngIf="formSubmitted && !vikendica.mesto">Mesto je obavezno.</div>
+        </label>
+        <!-- Telefon -->
+        <label>
+            <input class="input" type="text" [(ngModel)]="vikendica.telefon" name="telefon" required>
+            <span>Telefon</span>
+            <div class="error" *ngIf="formSubmitted && !vikendica.telefon">Telefon je obavezan.</div>
+        </label>
+    </div>
+
+    <!-- Opis -->
+    <label>
+      <textarea class="input" rows="5" [(ngModel)]="vikendica.opis" name="opis" required></textarea>
+      <span>Opis</span>
+    <div class="error" *ngIf="formSubmitted && !vikendica.opis">Opis je obavezan.</div>
+    </label>
+
+    <div class="flex">
+        <!-- Cena leti -->
+        <label>
+            <input class="input" type="number" [(ngModel)]="vikendica.cena_leto" name="cena_leto" required>
+            <span>Cena leti</span>
+            <div class="error" *ngIf="formSubmitted && (vikendica.cena_leto === null || vikendica.cena_leto === undefined)">
+            Cena leti je obavezna.
+            </div>
+        </label>
+        <!-- Cena zimi -->
+        <label>
+            <input class="input" type="number" [(ngModel)]="vikendica.cena_zima" name="cena_zima" required>
+            <span>Cena zimi</span>
+            <div class="error" *ngIf="formSubmitted && (vikendica.cena_zima === null || vikendica.cena_zima === undefined)">
+            Cena zimi je obavezna.
+            </div>
+        </label>
+    </div>
+
+    <!-- Mapa -->
+    <label style="text-align: center; justify-content: center;">
+      <app-mapa ></app-mapa>
+    </label>
+    <div class="error" *ngIf="formSubmitted && (vikendica.x === null || vikendica.y === null)">
+      Lokacija je obavezna.
+    </div>
+
+    <!-- Slike -->
+    <label class="upload-label" [class.file-upload-active]="slikaIzabrana">
+      <input type="file" multiple (change)="onFileChange($event)" accept="image/png, image/jpeg" hidden>
+      <span>{{ slikaIzabrana ? 'Slika izabrana ✔' : 'Izaberi profilnu sliku (JPG/PNG)' }}</span>
+    </label>
+    <div class="error" *ngIf="formSubmitted && slikeFajlovi.length === 0">Bar jedna slika je obavezna.</div>
+
+
+    <!-- Dugme -->
+    <button class="submit" type="button" (click)="dodajVikendicu()">Dodaj</button>
+  </form>
+</div>
