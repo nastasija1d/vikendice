@@ -1,5 +1,9 @@
 package com.example.backend.models;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Vikendica {
     private int id;
     private String vlasnik;
@@ -9,12 +13,12 @@ public class Vikendica {
     private String telefon;
     private Integer cena_leto;
     private Integer cena_zima;
-    private Double x;
-    private Double y;
-    private String[] slike;    
+    private BigDecimal x;
+    private BigDecimal y;
+    private List<String> slike;    
 
     public Vikendica(int id, String vlasnik, String naziv, String mesto, 
-    String opis,String telefon, Integer cena_leto, Integer cena_zima, Double x, Double y, String[] slike) {
+    String opis,String telefon, Integer cena_leto, Integer cena_zima, BigDecimal x, BigDecimal y, List<String> slike) {
         this.id = id;
         this.vlasnik = vlasnik;
         this.naziv = naziv;
@@ -37,9 +41,9 @@ public class Vikendica {
         this.telefon = "";
         this.cena_leto = 0;
         this.cena_zima = 0;
-        this.x = 0.0;
-        this.y = 0.0;
-        this.slike = new String[0];
+        this.x = BigDecimal.ZERO;
+        this.y = BigDecimal.ZERO;
+        this.slike = new ArrayList<>();
     }
     
     public int getId() {
@@ -63,13 +67,13 @@ public class Vikendica {
     public Integer getCenaZima() {
         return cena_zima;
     }
-    public Double getX() {
+    public BigDecimal getX() {
         return x;
     }
-    public Double getY() {
+    public BigDecimal getY() {
         return y;
     }
-    public String[] getSlike() {
+    public List<String> getSlike() {
         return slike;
     } 
     public String getTelefon() {
@@ -98,13 +102,13 @@ public class Vikendica {
     public void setCenaZima(Integer cena_zima) {
         this.cena_zima = cena_zima;
     }
-    public void setX(Double x) {
+    public void setX(BigDecimal x) {
         this.x = x;
     }
-    public void setY(Double y) {
+    public void setY(BigDecimal y) {
         this.y = y;
     }
-    public void setSlike(String[] slike) {
+    public void setSlike(List<String> slike) {
         this.slike = slike; 
     }
     public void setTelefon(String telefon) {

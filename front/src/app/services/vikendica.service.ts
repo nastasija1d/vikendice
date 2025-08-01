@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Vikendica } from '../models/vikendica';
 
@@ -10,6 +10,29 @@ export class VikendicaService {
   http = inject(HttpClient)
   url = 'http://localhost:8080/vikendica';
 
+  dohvatiVikendicu(id: number){
+    return this.http.get<Vikendica>(this.url + '/dohvati/' + id);
+  }
+
+  dodajSlikeVikendici(id: number, slike: File[]) {
+    const formData = new FormData();
+    if (slike && slike.length > 0) {
+      slike.forEach(slika => {
+        formData.append('slike', slika);
+      });
+    }
+    return this.http.post<string[]>(`${this.url}/dodajslike/${id}`, formData);
+  }
+
+  obrisiSliku(putanjaSlike: string){
+    const params = new HttpParams().set('putanja', putanjaSlike);
+    console.log('Brisanje slike:', putanjaSlike);
+    return this.http.delete<number>(
+      `${this.url}/obrisisliku`,
+      { params }
+    );
+  }
+
   dodajVikendicu(vikendica: Vikendica, slike: File[]) {
     const formData = new FormData();
     
@@ -17,8 +40,8 @@ export class VikendicaService {
     formData.append('mesto', vikendica.mesto);
     formData.append('telefon', vikendica.telefon);
     formData.append('opis', vikendica.opis);
-    formData.append('cena_leto', vikendica.cena_leto?.toString() ?? '');
-    formData.append('cena_zima', vikendica.cena_zima?.toString() ?? '');
+    formData.append('cena_leto', vikendica.cenaLeto?.toString() ?? '');
+    formData.append('cena_zima', vikendica.cenaZima?.toString() ?? '');
     formData.append('x', vikendica.x?.toString() ?? '');
     formData.append('y', vikendica.y?.toString() ?? '');
     formData.append('vlasnik', vikendica.vlasnik);
@@ -30,6 +53,23 @@ export class VikendicaService {
     }
 
     return this.http.post<number>(`${this.url}/dodaj`, formData);
+  }
+
+  azurirajVikendicu(vikendica: Vikendica, id: number) {
+    const formData = new FormData();
+    
+    formData.append('naziv', vikendica.naziv);
+    formData.append('mesto', vikendica.mesto);
+    formData.append('telefon', vikendica.telefon);
+    formData.append('opis', vikendica.opis);
+    formData.append('cena_leto', vikendica.cenaLeto?.toString() ?? '');
+    formData.append('cena_zima', vikendica.cenaZima?.toString() ?? '');
+    formData.append('x', vikendica.x?.toString() ?? '');
+    formData.append('y', vikendica.y?.toString() ?? '');
+    formData.append('vlasnik', vikendica.vlasnik);
+
+
+    return this.http.post<number>(this.url + "/azuriraj/" + id, formData);
   }
 }
 

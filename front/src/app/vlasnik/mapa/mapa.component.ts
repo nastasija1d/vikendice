@@ -1,12 +1,9 @@
-import { AfterViewInit, Component, EventEmitter, Output } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
-
-import 'leaflet/dist/images/marker-icon.png';
-import 'leaflet/dist/images/marker-shadow.png';
 import * as L from 'leaflet';
 
+// Fix za Leaflet ikone
 delete (L.Icon.Default.prototype as any)._getIconUrl;
-
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: 'marker-icon-2x.png',
   iconUrl: 'marker-icon.png',
@@ -20,16 +17,51 @@ L.Icon.Default.mergeOptions({
   templateUrl: './mapa.component.html',
   styleUrl: './mapa.component.css'
 })
-export class MapaComponent implements AfterViewInit {
-  map!: L.Map;
-  marker!: L.Marker;
-  x: number = 0;
-  y: number = 0;
+export class MapaComponent implements AfterViewInit, OnChanges {
+  private map!: L.Map;
+  private marker!: L.Marker;
+  
+  // Defaultne vrednosti
+  private defaultX = 44.7866;
+  private defaultY = 20.4489;
+  private defaultZoom = 14;
+
+  // Input properties sa setterima
+  private _x = this.defaultX;
+  private _y = this.defaultY;
+
+  @Input() 
+  set x(value: number) {
+    this._x = value ?? this.defaultX;
+    this.updateMarker();
+  }
+  get x(): number {
+    return this._x;
+  }
+
+  @Input() 
+  set y(value: number) {
+    this._y = value ?? this.defaultY;
+    this.updateMarker();
+  }
+  get y(): number {
+    return this._y;
+  }
 
   @Output() koordinate = new EventEmitter<{ x: number, y: number }>();
 
   ngAfterViewInit(): void {
-    this.map = L.map('map').setView([44.7866, 20.4489], 13);
+    this.initMap();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (this.map && (changes['x'] || changes['y'])) {
+      this.updateMarker();
+    }
+  }
+
+  private initMap(): void {
+    this.map = L.map('map').setView([this._x, this._y], this.defaultZoom);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
@@ -37,16 +69,26 @@ export class MapaComponent implements AfterViewInit {
     }).addTo(this.map);
 
     this.map.on('click', (e: L.LeafletMouseEvent) => {
-      this.x = e.latlng.lat;
-      this.y = e.latlng.lng;
-
-      if (this.marker) {
-        this.marker.setLatLng(e.latlng);
-      } else {
-        this.marker = L.marker(e.latlng).addTo(this.map);
-      }
-
-      this.koordinate.emit({ x: this.x, y: this.y });
+      this._x = e.latlng.lat;
+      this._y = e.latlng.lng;
+      this.updateMarker();
+      this.koordinate.emit({ x: this._x, y: this._y });
     });
+
+    this.updateMarker();
+  }
+
+  private updateMarker(): void {
+    if (!this.map) return;
+
+    const latLng = L.latLng(this._x, this._y);
+    
+    if (this.marker) {
+      this.marker.setLatLng(latLng);
+    } else {
+      this.marker = L.marker(latLng).addTo(this.map);
+    }
+
+    this.map.setView(latLng, this.map.getZoom());
   }
 }

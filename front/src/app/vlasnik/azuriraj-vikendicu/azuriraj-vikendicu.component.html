@@ -1,6 +1,6 @@
 <div class="container">
   <form class="form">
-    <h2 class="title">Dodaj vikendicu</h2>
+    <h2 class="title">Izmeni podatke o vikendici</h2>
 
     <!-- Naziv -->
     <label>
@@ -51,21 +51,35 @@
 
     <!-- Mapa -->
     <label style="text-align: center; justify-content: center;">
-      <app-mapa ></app-mapa>
+      <app-mapa [x]="vikendica.x ?? 5" [y]="vikendica.y ?? 5"></app-mapa>
     </label>
     <div class="error" *ngIf="formSubmitted && (vikendica.x === null || vikendica.y === null)">
       Lokacija je obavezna.
     </div>
 
+    <div class="galerija-wrapper">
+      <button class="strelica levo" (click)="scrollLevo()">&#8592;</button>
+
+      <div class="galerija" #scrollContainer>
+        <div class="slika-container" *ngFor="let slika of vikendica.slike">
+          <img [src]="'http://localhost:8080/' + slika" />
+          <button class="obrisi-dugme" (click)="obrisiSliku(slika)">✖</button>
+        </div>
+      </div>
+
+      <button class="strelica desno" (click)="scrollDesno()">&#8594;</button>
+    </div>
+
+
     <!-- Slike -->
     <label class="upload-label" [class.file-upload-active]="slikaIzabrana">
       <input type="file" multiple (change)="onFileChange($event)" accept="image/png, image/jpeg" hidden>
-      <span>{{ slikaIzabrana ? 'Slika izabrana ✔' : 'Izaberi profilnu sliku (JPG/PNG)' }}</span>
+      <span>Dodaj nove slike</span>
     </label>
     <div class="error" *ngIf="formSubmitted && slikeFajlovi.length === 0">Bar jedna slika je obavezna.</div>
 
 
     <!-- Dugme -->
-    <button class="submit" type="button" (click)="dodajVikendicu()">Dodaj</button>
+    <button class="submit" type="button" (click)="dodajVikendicu()"><b>Sacuvaj</b></button>
   </form>
 </div>

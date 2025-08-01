@@ -18,6 +18,7 @@ export class DodajVikendicuComponent implements OnInit{
   slikeFajlovi: File[] = [];
   slikaIzabrana = false;
   servis = inject(VikendicaService)
+  MAX_TOTAL_SIZE_MB = 1;
 
   ngOnInit(): void {
     const korisnikString = localStorage.getItem('ulogovaniKorisnik');
@@ -33,6 +34,16 @@ export class DodajVikendicuComponent implements OnInit{
 
   onFileChange(event: any) {
     this.slikeFajlovi = Array.from(event.target.files);
+    this.slikaIzabrana = this.slikeFajlovi.length > 0;
+
+    // Provera ukupne veličine fajlova
+    const totalSize = this.slikeFajlovi.reduce((acc, file) => acc + file.size, 0);
+    if (totalSize > this.MAX_TOTAL_SIZE_MB * 1024 * 1024) {
+      alert(`Ukupna veličina fajlova ne sme biti veća od ${this.MAX_TOTAL_SIZE_MB} MB.`);
+      this.slikeFajlovi = [];
+      this.slikaIzabrana = false;
+    }
+
   }
 
   dodajVikendicu(): void {
@@ -45,8 +56,8 @@ export class DodajVikendicuComponent implements OnInit{
       this.vikendica.mesto.trim() !== '' &&
       this.vikendica.telefon.trim() !== '' &&
       this.vikendica.opis.trim() !== '' &&
-      this.vikendica.cena_leto !== null &&
-      this.vikendica.cena_zima !== null &&
+      this.vikendica.cenaLeto !== null &&
+      this.vikendica.cenaZima !== null &&
       this.vikendica.x !== null &&
       this.vikendica.y !== null ;
 
