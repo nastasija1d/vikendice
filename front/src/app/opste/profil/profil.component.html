@@ -1,100 +1,89 @@
-<div class="" *ngIf="korisnik">
-  <!-- Ako nismo u režimu izmene -->
-  <div *ngIf="!izmena" class="container">
-    <div class="form1" novalidate>
-      <h2 style="text-align: center; justify-content: center;">Tvoj profil</h2>
-    <div class="profil-slika" style="text-align: center; justify-content: center;">
-      <img [src]="'http://localhost:8080/' + korisnik.slika" alt="Profilna slika" width="150">
+<div *ngIf="korisnik" style="justify-content: center; display: flex; flex-direction: column; align-items: center;">
+  <!-- Prikaz podataka -->
+  <div *ngIf="!izmena" class="profil-kartica">
+    <h2 class="naslov">Tvoj profil</h2>
+    <div class="profilna-wrapper">
+      <img [src]="'http://localhost:8080/' + korisnik.slika" alt="default.png">
     </div>
-    <p><strong>Korisničko ime:</strong> {{ korisnik.username }}</p>
-    <p><strong>Ime:</strong> {{ korisnik.ime }}</p>
-    <p><strong>Prezime:</strong> {{ korisnik.prezime }}</p>
-    <p><strong>Pol:</strong> {{ korisnik.pol === 0 ? 'Muški' : 'Ženski' }}</p>
-    <p><strong>Adresa:</strong> {{ korisnik.adresa }}</p>
-    <p><strong>Telefon:</strong> {{ korisnik.telefon }}</p>
-    <p><strong>Email:</strong> {{ korisnik.email }}</p>
-    <p><strong>Broj kartice:</strong> {{ korisnik.kartica }}</p>
+    <div class="podaci">
+      <p><strong>Korisničko ime:</strong> {{ korisnik.username }}</p>
+      <p><strong>Ime:</strong> {{ korisnik.ime }}</p>
+      <p><strong>Prezime:</strong> {{ korisnik.prezime }}</p>
+      <div *ngIf="korisnik.tip>0">
+      <p><strong>Pol:</strong> {{ korisnik.pol === 0 ? 'Muški' : 'Ženski' }}</p>
+      <p><strong>Adresa:</strong> {{ korisnik.adresa }}</p>
+      <p><strong>Telefon:</strong> {{ korisnik.telefon }}</p>
+      <p><strong>Email:</strong> {{ korisnik.email }}</p>
+      <p><strong>Broj kartice:</strong> {{ korisnik.kartica }}</p>
+      </div>
+    </div>
 
-    <button class="submit" (click)="pokreniIzmenu()">IZMENI</button>
-    <button class="submit" style="background-color: red; margin-top: 30px;" (click)="logout()">ODJAVA</button>
+    <div class="dugmad">
+      <button *ngIf="korisnik.tip>0" class="dugme" (click)="pokreniIzmenu()">Izmeni</button>
+      <button class="dugme crveno" (click)="logout()">Odjava</button>
     </div>
   </div>
-  <!-- Režim izmene -->
-<div class="container" *ngIf="izmena">
-  <form class="form" novalidate>
-    <h2 style="text-align: center; justify-content: center;">Azuriraj podatke</h2>
-    <div class="profil-slika" style="text-align: center; justify-content: center;">
-      <img [src]="'http://localhost:8080/' + korisnik.slika" alt="Profilna slika" width="150">
+
+  <!-- Forma za izmenu -->
+  <form *ngIf="izmena" class="profil-forma" novalidate class="form">
+    <h2 class="naslov">Ažuriraj podatke</h2>
+    <div class="profilna-wrapper">
+      <img [src]="'http://localhost:8080/' + korisnik.slika" alt="Profilna slika">
     </div>
 
-    <!-- Ime -->
-    <label>
-      <input class="input" [(ngModel)]="izmenaKorisnik.ime" name="ime" required />
+    <label >
+      <input class="input" [(ngModel)]="izmenaKorisnik.ime" name="ime" required>
       <span>Ime</span>
       <div class="error" *ngIf="greske.ime">{{ greske.ime }}</div>
     </label>
 
-    <!-- Prezime -->
     <label>
-      <input class="input" [(ngModel)]="izmenaKorisnik.prezime" name="prezime" required />
+      <input class="input" [(ngModel)]="izmenaKorisnik.prezime" name="prezime" required>
       <span>Prezime</span>
       <div class="error" *ngIf="greske.prezime">{{ greske.prezime }}</div>
     </label>
 
-    <!-- Pol -->
     <label>
       <select [(ngModel)]="izmenaKorisnik.pol" name="pol">
         <option [value]="0">Muški</option>
         <option [value]="1">Ženski</option>
       </select>
-            <span>Pol</span>
+      <span>Pol</span>
     </label>
 
-    <!-- Adresa -->
     <label>
-      <input class="input" [(ngModel)]="izmenaKorisnik.adresa" name="adresa" />
+      <input class="input" [(ngModel)]="izmenaKorisnik.adresa" name="adresa">
       <span>Adresa</span>
     </label>
 
-    <!-- Telefon -->
     <label>
-      <input class="input" type="text" [(ngModel)]="izmenaKorisnik.telefon"
-        name="telefon"  required />
-        <span>Telefon</span>
-      <div *ngIf="greske.telefon" class="error">{{ greske.telefon }}</div>
+      <input class="input" type="text" [(ngModel)]="izmenaKorisnik.telefon" name="telefon" required>
+      <span>Telefon</span>
+      <div class="error" *ngIf="greske.telefon">{{ greske.telefon }}</div>
     </label>
 
-    <!-- Email -->
     <label>
-      <input class="input" [(ngModel)]="izmenaKorisnik.email" name="email" type="email" required />
+      <input class="input" type="email" [(ngModel)]="izmenaKorisnik.email" name="email" required>
       <span>Email</span>
       <div class="error" *ngIf="greske.email">{{ greske.email }}</div>
     </label>
 
-    <!-- Kartica -->
-    <label>
-      <input class="input" [(ngModel)]="izmenaKorisnik.kartica" name="kartica" required />
-      <img [src]="karticaIkonica" class="kartica-ikonica" *ngIf="karticaIkonica">
+    <label class="kartica-label">
+      <input class="input" [(ngModel)]="izmenaKorisnik.kartica" name="kartica" required>
       <span>Broj kartice</span>
+      <img [src]="karticaIkonica" *ngIf="karticaIkonica" class="kartica-ikonica">
       <div class="error" *ngIf="greske.kartica">{{ greske.kartica }}</div>
     </label>
 
-    <!-- Slika -->
     <label class="upload-label" [class.file-upload-active]="slikaIzabrana">
       <input type="file" accept="image/png, image/jpeg" (change)="onSlikaChange($event)" hidden>
-      <span>{{ slikaIzabrana ? 'Slika izabrana ✔' : 'Izaberi profilnu sliku (JPG/PNG)' }}</span>
-      <div *ngIf="greske.slika" class="error">{{ greske.slika }}</div>
+      <span style="color: beige;">{{ slikaIzabrana ? '✔ Slika izabrana' : 'Izaberi sliku (JPG/PNG)' }}</span>
+      <div class="error" *ngIf="greske.slika">{{ greske.slika }}</div>
     </label>
-    
 
-    <!-- Dugmad -->
-    <div class="flex" style="justify-content: space-around;">
-      <button class="submit" (click)="sacuvajIzmene()">SAČUVAJ</button>
-      <button class="submit" style="background-color: red;" (click)="ponistiIzmene()">PONIŠTI</button>
+    <div class="dugmad">
+      <button class="dugme" (click)="sacuvajIzmene()">Sačuvaj</button>
+      <button class="dugme crveno" (click)="ponistiIzmene()">Poništi</button>
     </div>
-
   </form>
-</div>
-
-  
 </div>

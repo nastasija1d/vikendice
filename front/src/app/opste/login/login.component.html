@@ -16,8 +16,14 @@
       <span>Lozinka</span>
       <div class="error">{{ greska }}</div>
     </label>
-
-    
+    <p style="text-align: center; font-size: smaller; margin: 0; padding: 0;">
+      Zaboravljena lozinka? 
+      <a routerLink="/promenalozinke">Promeni lozinku</a>
+    </p>
+    <p style="text-align: center; margin: 0; padding: 0;">
+      Nemate nalog? 
+      <a routerLink="/registracija">Registruj se</a>
+    </p>
     <button class="submit" (click)="login()">Potvrdi</button>
-  </form>
+      </form>
 </div>

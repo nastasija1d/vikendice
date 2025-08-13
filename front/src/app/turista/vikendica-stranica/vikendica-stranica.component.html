@@ -1,0 +1,59 @@
+<div class="row gx-4 gy-5 mt-5">
+  <div class="col-12 col-lg-9">
+    <div class="detaljna-kartica mx-auto">
+      <div class="galerija-wrapper" style="height: 500px;">
+        <div class="galerija" #scrollContainer>
+          <div class="slika-container" *ngFor="let slika of vikendica.slike">
+            <img [src]="'http://localhost:8080/' + slika" />
+          </div>
+        </div>
+      </div>
+
+      <div class="detalji px-4">
+        <h2 style="margin-top: 20px; margin-bottom: 20px;font-weight: bold;">{{ vikendica.naziv }}</h2>
+        <p><strong>Mesto:</strong> {{ vikendica.mesto }}</p>
+        <p><strong>Telefon:</strong> {{ vikendica.telefon }}</p>
+        <p><strong>Opis:</strong> {{ vikendica.opis }}</p>
+        <p><strong>Cena leto:</strong> {{ vikendica.cenaLeto }}</p>
+        <p><strong>Cena zima:</strong> {{ vikendica.cenaZima }}</p>
+
+        <div class="d-flex justify-content-center align-items-center my-5" style="height: 420px;">
+          <app-mapa [x]="vikendica.x" [y]="vikendica.y" [height]="400" [width]="850"></app-mapa>
+        </div>
+        <div class="komentari-kartica">
+          <h3>Komentari gostiju</h3>
+          <div *ngFor="let komentar of ocene" class="komentar">
+            <div class="komentar-header">
+              <span class="ime">{{ komentar.ime }}</span>
+              <span class="ocena">{{ komentar.broj }} ★</span>
+            </div>
+            <p class="tekst">{{ komentar.tekst }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="rezervacija-blok col-12 col-lg-3">
+    <app-calendar (datumiChange)="onDatumiChange($event)"></app-calendar>
+    <div class="form-polje">
+      <label style="width: 100%;">
+        <span class="polje-labela">Broj odraslih</span>
+        <select class="custom-select" [(ngModel)]="odrasli" required [ngModelOptions]="{ standalone: true }"(change)="izracunajCenu()">
+          <option *ngFor="let broj of odrasliOpcije" [value]="broj">{{ broj }}</option>
+        </select>
+      </label>
+    </div>
+    <div class="form-polje">
+      <label style="width: 100%;">
+        <span class="polje-labela">Broj dece</span>
+        <select class="custom-select" [(ngModel)]="deca" required [ngModelOptions]="{ standalone: true }" (change)="izracunajCenu()">
+          <option *ngFor="let broj of decaOpcije" [value]="broj">{{ broj }}</option>
+        </select>
+      </label>
+    </div>
+    <div style="color: beige; margin-top: 0px; margin-bottom: 00px;">
+      <strong>Ocekivana cena: </strong> {{cena| number:'1.0-0'}} RSD
+    </div>
+    <button class="rezervisi-dugme" (click)="rezervisi()">Započni rezervaciju</button>
+</div>
+

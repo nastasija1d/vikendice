@@ -6,6 +6,7 @@
   width: 100%;
   margin: auto;
   padding: 20px;
+  background-color: #1c1c1a;
 }
 
 .form {
@@ -14,23 +15,23 @@
   flex-direction: column;
   gap: 15px;
   width: 400px;
-  padding: 0px 30px 50px 30px;
+  padding: 30px;
   border-radius: 20px;
-  background-color: #1a1a1a;
-  color: #fff;
-  border: 1px solid #333;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  background-color: #f4eee0;
+  color: #4b1e2f;
+  border: 1px solid rgba(160, 137, 44, 0.3);
+  box-shadow: 0 8px 20px rgba(160, 137, 44, 0.2);
 }
 
 .title {
   font-size: 28px;
   font-weight: 600;
-  letter-spacing: -1px;
+  letter-spacing: -0.5px;
   display: flex;
   align-items: center;
-  color: #00bfff;
-  text-align: center;
   justify-content: center;
+  color: #4b1e2f;
+  margin-bottom: 10px;
 }
 
 /* GRUPISANJE POLJA PO DVA U JEDAN RED */
@@ -47,25 +48,27 @@
 .form label {
   position: relative;
   width: 100%;
+  color: #3e3e3e;
+  font-size: 15px;
 }
 
 .form label .input,
 .form label select {
-  background-color: #333;
-  color: #fff;
+  background-color: #fff;
+  color: #4b1e2f;
   width: 100%;
   padding: 10px 12px;
   outline: none;
-  border: 1px solid rgba(105, 105, 105, 0.397);
+  border: 1px solid rgba(160, 137, 44, 0.3);
   border-radius: 10px;
   font-size: 16px;
   box-sizing: border-box;
+  transition: border-color 0.3s ease;
 }
 
-/* LEPO PORAVNAN TEKST */
 .form label .input + span,
 .form label select + span {
-  color: rgba(255, 255, 255, 0.5);
+  color: #3e3e3e;
   position: absolute;
   left: 12px;
   top: 0px;
@@ -83,30 +86,32 @@
 .form label .input:valid + span,
 .form label select:focus + span,
 .form label select:valid + span {
-  color: #00bfff;
+  color: #a0892c;
   top: 0px;
   font-size: 0.7em;
   font-weight: 600;
 }
 
 .input {
-  font-size: medium;
+  font-size: 16px;
   width: 100%;
 }
 
 .submit {
   border: none;
   outline: none;
-  padding: 10px;
+  padding: 12px;
   border-radius: 10px;
-  color: #fff;
+  color: white;
   font-size: 16px;
-  transition: 0.3s ease;
-  background-color: #00bfff;
+  background-color: #2e4f4f;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .submit:hover {
-  background-color: #00bfff96;
+  background-color: #a0892c;
+  box-shadow: 0 4px 10px rgba(160, 137, 44, 0.4);
 }
 
 /* Broj bez strelica */
@@ -121,9 +126,8 @@ input[type="number"] {
   appearance: textfield;
 }
 
-
 .error {
-  color: #ff4d4d;
+  color: #b30000;
   font-size: 0.75rem;
   margin-top: 4px;
   margin-left: 5px;

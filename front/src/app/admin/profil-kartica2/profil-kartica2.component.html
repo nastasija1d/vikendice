@@ -1,0 +1,19 @@
+<div class="profil-kartica" [class.blokiran]="korisnik.status === 3">
+    <div class="profilna-wrapper">
+        <img [src]="'http://localhost:8080/' + korisnik.slika" alt="default.png">
+    </div>
+    <h2 class="naslov">{{ korisnik.ime }} {{ korisnik.prezime }}</h2>
+    <div class="podaci">
+        <p><strong>Korisničko ime:</strong> {{ korisnik.username }}</p>
+        <p><strong>Pol:</strong> {{ korisnik.pol === 0 ? 'Muški' : 'Ženski' }}</p>
+        <p><strong>Adresa:</strong> {{ korisnik.adresa }}</p>
+        <p><strong>Telefon:</strong> {{ korisnik.telefon }}</p>
+        <p><strong>Email:</strong> {{ korisnik.email }}</p>
+        <p><strong>Broj kartice:</strong> {{ korisnik.kartica }}</p>
+    </div>
+
+    <div class="dugmad">
+        <button class="dugme" (click)="izmeni()" [disabled]="korisnik.status===3">Izmeni</button>
+        <button class="dugme crveno" (click)="blokiraj()">Blokiraj</button>
+    </div>
+</div>

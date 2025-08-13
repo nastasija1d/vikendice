@@ -1,6 +1,7 @@
 package com.example.backend.models;
 
 import java.math.BigDecimal;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,7 +16,11 @@ public class Vikendica {
     private Integer cena_zima;
     private BigDecimal x;
     private BigDecimal y;
-    private List<String> slike;    
+    private List<String> slike; 
+    private double ocena;  
+    private Date vremeBlokiranja; 
+    private int blokirana;
+
 
     public Vikendica(int id, String vlasnik, String naziv, String mesto, 
     String opis,String telefon, Integer cena_leto, Integer cena_zima, BigDecimal x, BigDecimal y, List<String> slike) {
@@ -113,6 +118,30 @@ public class Vikendica {
     }
     public void setTelefon(String telefon) {
         this.telefon = telefon;
+    }
+
+    public double getOcena() {
+        return ocena;
+    }
+
+    public void setOcena(double ocena) {
+        this.ocena = ocena;
+    }
+
+    public Date getVremeBlokiranja() {
+        return vremeBlokiranja;
+    }
+
+    public void setVremeBlokiranja(Date vremeBlokiranja) {
+        this.vremeBlokiranja = vremeBlokiranja;
+    }
+
+    public int getBlokirana() {
+        return blokirana;
+    }
+
+    public void setBlokirana(int blokirana) {
+        this.blokirana = blokirana;
     }
 
     @Override

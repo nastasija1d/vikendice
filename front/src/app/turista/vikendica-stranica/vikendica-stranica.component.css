@@ -1,0 +1,212 @@
+.detaljna-kartica {
+  background-color: #f4eee0;
+  color: #3e3e3e;
+  padding: 25px;
+  width: 90%;
+  max-width: 1000px;
+  height: auto;
+  overflow-y: auto;
+  position: relative;
+  border-radius: 12px;
+  margin-top: 17px;
+  box-shadow: 0 4px 20px rgba(160, 137, 44, 0.3);
+}
+
+.zatvori {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: rgba(160, 137, 44, 0.3);
+  color: #4b1e2f;
+  border: none;
+  border-radius: 30px;
+  font-weight: bold;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background 0.3s ease;
+}
+.zatvori:hover {
+  background-color: #a0892c;
+  color: white;
+}
+
+/* GALERIJA */
+.galerija-wrapper {
+  width: 100%;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 30px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  scroll-behavior: smooth;
+}
+
+.galerija {
+  display: flex;
+  gap: 20px;
+  height: 100%;
+  margin-bottom: 15px;
+}
+
+.slika-container {
+  position: relative;
+  flex: 0 0 auto;
+  height: 100%;
+  border: 8px solid #f4eee0;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.slika-container img {
+  height: 100%;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.3s;
+}
+
+.slika-container:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 16px rgba(160, 137, 44, 0.4);
+}
+
+/* Horizontalni scrollbar */
+.galerija-wrapper::-webkit-scrollbar {
+  height: 10px;
+}
+.galerija-wrapper::-webkit-scrollbar-thumb {
+  background: rgba(160, 137, 44, 0.6);
+  border-radius: 10px;
+}
+.galerija-wrapper::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+
+.rezervacija-blok {
+  padding: 30px;
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-polje {
+  position: relative;
+  margin-top: 10px;
+}
+
+.polje-labela {
+  position: absolute;
+  top: -1px;
+  left: 12px;
+  color: #a0892c; 
+  font-size: 0.65rem;
+  padding: 0 6px;
+  z-index: 1;
+}
+
+.custom-select {
+  width: 280px;
+  margin: auto;
+  padding: 10px 14px;
+  background-color: #2a2a2a;
+  color: #f4eee0;
+  border: 1px solid #3e3e3e;
+  border-radius: 8px;
+  font-size: 1rem;
+  appearance: none;
+  outline: none;
+  transition: border 0.3s ease;
+}
+
+.custom-select:focus {
+  border-color: #a0892c; /* maslinasto zlatna */
+}
+
+.rezervisi-dugme {
+  margin-top: 10px;
+  padding: 12px 20px;
+  width: 280px;
+  background-color: #2e4f4f;
+  color: #f4eee0;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.rezervisi-dugme:hover {
+  background-color: #a0892c;
+  color: #1c1c1a;
+}
+
+.komentari-kartica {
+  background-color: #f4eee0;
+  padding: 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  max-width: 800px;
+  margin: 3rem auto;
+  color: #3e3e3e;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.komentari-kartica h3 {
+  font-size: 1.8rem;
+  color: #4b1e2f;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.komentar {
+  border-bottom: 1px solid rgba(160, 137, 44, 0.2);
+  padding: 1rem 0;
+}
+
+.komentar:last-child {
+  border-bottom: none;
+}
+
+.komentar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.ime {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #2e4f4f;
+}
+
+.ocena {
+  font-size: 1rem;
+  background-color: rgba(160, 137, 44, 0.1);
+  color: #a0892c;
+  padding: 0.3rem 0.7rem;
+  border-radius: 1rem;
+}
+
+.tekst {
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 0.3rem;
+}
+
+.datum {
+  font-size: 0.85rem;
+  color: #888;
+}
+
+
+

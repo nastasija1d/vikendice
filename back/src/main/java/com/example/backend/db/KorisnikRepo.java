@@ -5,6 +5,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,7 +46,7 @@ public class KorisnikRepo {
     }
 
     public Korisnik login(String username, String lozinka) {
-    String sql = "SELECT * FROM Korisnik WHERE username = ?";
+    String sql = "SELECT * FROM Korisnik WHERE username = ? and tip>0";
         try (Connection conn = DB.source().getConnection();
             PreparedStatement ps = conn.prepareStatement(sql)) {
             
@@ -54,7 +56,6 @@ public class KorisnikRepo {
                 String hesiranaLozinka = rs.getString("lozinka");
                 // Provera lozinke
                 if (BCrypt.checkpw(lozinka, hesiranaLozinka)) {
-                    // Ako je lozinka tacna, kreiramo objekat Korisnik i vracamo
                     Korisnik korisnik = new Korisnik();
                     korisnik.setUsername(rs.getString("username"));
                     korisnik.setEmail(rs.getString("email"));
@@ -70,7 +71,40 @@ public class KorisnikRepo {
                     return korisnik;
                 }
             }
-            return null; // nije pronadjen korisnik ili je lozinka netacna
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public Korisnik loginAdmin(String username, String lozinka) {
+        String sql = "SELECT * FROM Korisnik WHERE username = ? and tip=0";
+        try (Connection conn = DB.source().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            
+            ps.setString(1, username);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                String hesiranaLozinka = rs.getString("lozinka");
+                // Provera lozinke
+                if (BCrypt.checkpw(lozinka, hesiranaLozinka)) {
+                    Korisnik korisnik = new Korisnik();
+                    korisnik.setUsername(rs.getString("username"));
+                    korisnik.setEmail(rs.getString("email"));
+                    korisnik.setIme(rs.getString("ime"));
+                    korisnik.setPrezime(rs.getString("prezime"));
+                    korisnik.setPol(rs.getInt("pol"));
+                    korisnik.setAdresa(rs.getString("adresa"));
+                    korisnik.setTelefon(rs.getString("telefon"));
+                    korisnik.setSlika(rs.getString("slika"));
+                    korisnik.setKartica(rs.getString("kartica"));
+                    korisnik.setTip(rs.getInt("tip"));
+                    korisnik.setStatus(rs.getInt("status"));
+                    return korisnik;
+                }
+            }
+            return null;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -180,5 +214,126 @@ public class KorisnikRepo {
             return null;
         }
     }
-        
+      
+    public List<Korisnik> dohvaiSveZahteve(){
+        String sql = "SELECT * FROM Korisnik WHERE status = 0";
+        try (Connection conn = DB.source().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            List<Korisnik> lista = new ArrayList<>();
+            while (rs.next()) {
+                Korisnik korisnik = new Korisnik();
+                korisnik.setUsername(rs.getString("username"));
+                korisnik.setEmail(rs.getString("email"));
+                korisnik.setIme(rs.getString("ime"));
+                korisnik.setPrezime(rs.getString("prezime"));
+                korisnik.setPol(rs.getInt("pol"));
+                korisnik.setAdresa(rs.getString("adresa"));
+                korisnik.setTelefon(rs.getString("telefon"));
+                korisnik.setSlika(rs.getString("slika"));
+                korisnik.setKartica(rs.getString("kartica"));
+                korisnik.setTip(rs.getInt("tip"));
+                korisnik.setStatus(rs.getInt("status"));
+                lista.add(korisnik); 
+            }
+            return lista;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public int potvrdiZahtev(String username) {
+        String sql = "update Korisnik set status=1 WHERE username = ?";
+        try (Connection conn = DB.source().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, username);
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
+    }
+
+    public int odbiZahtev(String username) {
+        String sql = "update Korisnik set status=2 WHERE username = ?";
+        try (Connection conn = DB.source().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, username);
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public int blokirajKorisnika(String username) {
+        String sql = "update Korisnik set status=3 WHERE username = ?";
+        try (Connection conn = DB.source().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, username);
+            return ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    public List<Korisnik> dohvatiSveKorisnike() {
+        String sql = "SELECT * FROM Korisnik WHERE tip > 0 and (status = 1 or status = 3 ) order by status";
+        try (Connection conn = DB.source().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ResultSet rs = ps.executeQuery();
+            List<Korisnik> lista = new ArrayList<>();
+            while (rs.next()) {
+                Korisnik korisnik = new Korisnik();
+                korisnik.setUsername(rs.getString("username"));
+                korisnik.setEmail(rs.getString("email"));
+                korisnik.setIme(rs.getString("ime"));
+                korisnik.setPrezime(rs.getString("prezime"));
+                korisnik.setPol(rs.getInt("pol"));
+                korisnik.setAdresa(rs.getString("adresa"));
+                korisnik.setTelefon(rs.getString("telefon"));
+                korisnik.setSlika(rs.getString("slika"));
+                korisnik.setKartica(rs.getString("kartica"));
+                korisnik.setTip(rs.getInt("tip"));
+                korisnik.setStatus(rs.getInt("status"));
+                lista.add(korisnik); 
+            }
+            return lista;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
+
+    public Korisnik dohvatiKorisnika(String id) {
+        String sql = "SELECT * FROM Korisnik WHERE username = ?";
+        try (Connection conn = DB.source().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setString(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Korisnik korisnik = new Korisnik();
+                korisnik.setUsername(rs.getString("username"));
+                korisnik.setEmail(rs.getString("email"));
+                korisnik.setIme(rs.getString("ime"));
+                korisnik.setPrezime(rs.getString("prezime"));
+                korisnik.setPol(rs.getInt("pol"));
+                korisnik.setAdresa(rs.getString("adresa"));
+                korisnik.setTelefon(rs.getString("telefon"));
+                korisnik.setSlika(rs.getString("slika"));
+                korisnik.setKartica(rs.getString("kartica"));
+                korisnik.setTip(rs.getInt("tip"));
+                korisnik.setStatus(rs.getInt("status"));
+                return korisnik;
+            }
+            return null;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 }

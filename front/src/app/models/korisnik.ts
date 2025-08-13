@@ -9,7 +9,8 @@ export class Korisnik {
   telefon: string;
   kartica: string;
   tip: number; // 0: vlasnik, 1: turista, 2: admin
-  slika?: string; // opcionalno, može biti undefined
+  slika?: string; 
+  status: number;
 
   constructor(
     username: string = '',

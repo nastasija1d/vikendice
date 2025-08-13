@@ -4,7 +4,7 @@ import { VikendicaService } from '../../services/vikendica.service';
 import { Vikendica } from '../../models/vikendica';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-azuriraj-vikendicu',
@@ -22,6 +22,7 @@ export class AzurirajVikendicuComponent implements OnInit{
   MAX_TOTAL_SIZE_MB = 1;
   dozvoljenPristup = true;
   id = 0;
+  ruter = inject(Router);
 
   ngOnInit(): void {
     const korisnikString = localStorage.getItem('ulogovaniKorisnik');
@@ -120,6 +121,7 @@ export class AzurirajVikendicuComponent implements OnInit{
         if (data > 0) {
           alert('Vikendica uspešno ažurirana!');
           this.formSubmitted = false;
+          this.ruter.navigate(['/mojevikendice']);
         } else {
           alert('Greška prilikom ažuriranja vikendice!');
         }

@@ -1,0 +1,21 @@
+<div class="kartica">
+  <div class="carousel-wrapper">
+    <button *ngIf="vikendica.slike.length > 1" class="strelica levo" (click)="prethodna()">&#10094;</button>
+
+    <div class="carousel">
+      <img [src]="'http://localhost:8080/' + vikendica.slike[aktivnaSlikaIndex]" alt="slika vikendice" />
+    </div>
+
+    <button *ngIf="vikendica.slike.length > 1" class="strelica desno" (click)="sledeca()">&#10095;</button>
+  </div>
+
+  <div class="detalji">
+    <h3>{{ vikendica.naziv }}</h3>
+    <p><strong>Mesto:</strong> {{ vikendica.mesto }}</p>
+    <p><strong>Opis:</strong> {{ vikendica.opis }}</p>
+    <p><strong>Cena:</strong> {{ vikendica.cenaLeto }} RSD</p>
+    <app-zvezdice [ocena]="vikendica.ocena" *ngIf="vikendica.ocena>0"></app-zvezdice>
+    <p *ngIf="vikendica.ocena==0"><strong>Jos uvek nema ocena</strong></p>
+    <button (click)="detaljnije()">DETALJNIJE</button>
+  </div>
+</div>

@@ -51,7 +51,8 @@
 
     <!-- Mapa -->
     <label style="text-align: center; justify-content: center;">
-      <app-mapa [x]="vikendica.x ?? 5" [y]="vikendica.y ?? 5"></app-mapa>
+      <app-mapa [x]="vikendica.x" [y]="vikendica.y"
+      [width]="540" [height]="300"></app-mapa>
     </label>
     <div class="error" *ngIf="formSubmitted && (vikendica.x === null || vikendica.y === null)">
       Lokacija je obavezna.

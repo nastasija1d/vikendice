@@ -1,0 +1,27 @@
+.zvezdice {
+  display: flex;
+  gap: 4px;
+  font-size: 28px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.zvezda {
+  color: #ccc;
+  transition: color 0.2s ease-in-out;
+}
+
+.zvezda.puna {
+  color: gold;
+}
+
+.zvezda.pola {
+  background: linear-gradient(to right, gold 50%, #ccc 50%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: gold;
+}
+
+.zvezda.prazna {
+  color: #ccc;
+}

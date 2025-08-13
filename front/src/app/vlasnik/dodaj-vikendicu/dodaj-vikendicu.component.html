@@ -51,7 +51,7 @@
 
     <!-- Mapa -->
     <label style="text-align: center; justify-content: center;">
-      <app-mapa ></app-mapa>
+      <app-mapa [width]="520" [height]="300"></app-mapa>
     </label>
     <div class="error" *ngIf="formSubmitted && (vikendica.x === null || vikendica.y === null)">
       Lokacija je obavezna.
@@ -63,6 +63,12 @@
       <span>{{ slikaIzabrana ? 'Slika izabrana ✔' : 'Izaberi profilnu sliku (JPG/PNG)' }}</span>
     </label>
     <div class="error" *ngIf="formSubmitted && slikeFajlovi.length === 0">Bar jedna slika je obavezna.</div>
+
+    <label for="json-upload" class="upload-label">
+      <input type="file" id="json-upload" accept=".json" (change)="onUcitajJson($event)" hidden>
+      <span>Učitaj podatke iz JSON fajla</span>
+    </label>
+
 
 
     <!-- Dugme -->

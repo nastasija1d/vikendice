@@ -1,0 +1,51 @@
+<!-- admin-vikendice.component.html -->
+<div class="tabela-container">
+  <h2 class="page-title">Vikendice — upravljanje</h2>
+
+  <div class="table-card">
+    <table class="vikendice-tabela">
+      <thead>
+        <tr>
+          <th>Naziv</th>
+          <th>Mesto</th>
+          <th>Opis</th>
+          <th>Vlasnik</th>
+          <th class="center">Ocena</th>
+          <th class="center">Akcija</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let v of vikendice"
+            [class.kriticna]="v.ocena === 1"
+            [class.blokirana]="v.ocena === 1">
+          <td class="naziv-cell">
+            <div class="naziv-wrap">
+              <div class="naziv-text">{{ v.naziv }}</div>
+              <div class="small-muted">{{ v.id ? ('ID: ' + v.id) : '' }}</div>
+            </div>
+          </td>
+          <td>{{ v.mesto }}</td>
+          <td class="opis-cell">{{ v.opis }}</td>
+          <td>{{ v.vlasnik }}</td>
+          <td class="center">
+            <span class="ocena-bubble" [class.ocena-1]="v.ocena === 1">{{ v.ocena === 0 ? 'nema ocena' : v.ocena }}</span>
+          </td>
+          <td class="center">
+            <button *ngIf="v.ocena === 1 && !v.blokirana"
+                    class="btn blokiraj"
+                    (click)="blokiraj(v)">
+              ⛔ Blokiraj 48h
+            </button>
+
+            <button *ngIf="v.blokirana"
+                    class="btn disabled"
+                    disabled>
+              🔒 Blokirana
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,70 @@
+<div *ngIf="korisnik" class="profil-container">
+  <!-- Leva kolona -->
+  <div class="profil-left">
+    <div class="profilna-wrapper">
+      <img [src]="'http://localhost:8080/' + korisnik.slika" alt="Profilna slika" class="profilna-slika">
+    </div>
+    <label class="upload-label" [class.file-upload-active]="slikaIzabrana" >
+      <input type="file" accept="image/png, image/jpeg" (change)="onSlikaChange($event)" hidden class="up">
+      <span style="top: 0px;">{{ slikaIzabrana ? '✔ Slika izabrana' : 'Izaberi sliku (JPG/PNG)' }}</span>
+    </label>
+  </div>
+
+  <!-- Desna kolona -->
+  <form class="profil-forma" novalidate>
+    <h2 class="naslov">Ažuriraj podatke</h2>
+
+    <div class="flex">
+      <label>
+        <input class="input" [(ngModel)]="korisnik.ime" name="ime" required>
+        <span>Ime</span>
+        <div class="error" *ngIf="greske.ime">{{ greske.ime }}</div>
+      </label>
+
+      <label>
+        <input class="input" [(ngModel)]="korisnik.prezime" name="prezime" required>
+        <span>Prezime</span>
+        <div class="error" *ngIf="greske.prezime">{{ greske.prezime }}</div>
+      </label>
+    </div>
+
+    <div class="flex">
+      <label>
+        <select [(ngModel)]="korisnik.pol" name="pol">
+          <option [value]="0">Muški</option>
+          <option [value]="1">Ženski</option>
+        </select>
+        <span>Pol</span>
+      </label>
+
+      <label>
+        <input class="input" [(ngModel)]="korisnik.adresa" name="adresa">
+        <span>Adresa</span>
+      </label>
+    </div>
+
+    <label>
+      <input class="input" type="text" [(ngModel)]="korisnik.telefon" name="telefon" required>
+      <span>Telefon</span>
+      <div class="error" *ngIf="greske.telefon">{{ greske.telefon }}</div>
+    </label>
+
+    <label>
+      <input class="input" type="email" [(ngModel)]="korisnik.email" name="email" required>
+      <span>Email</span>
+      <div class="error" *ngIf="greske.email">{{ greske.email }}</div>
+    </label>
+
+    <label class="kartica-label">
+      <input class="input" [(ngModel)]="korisnik.kartica" name="kartica" required>
+      <span>Broj kartice</span>
+      <img [src]="karticaIkonica" *ngIf="karticaIkonica" class="kartica-ikonica">
+      <div class="error" *ngIf="greske.kartica">{{ greske.kartica }}</div>
+    </label>
+
+    <div class="dugmad">
+      <button class="dugme" (click)="sacuvajIzmene()">Sačuvaj</button>
+      <button class="dugme crveno" (click)="ponisti()">Poništi</button>
+    </div>
+  </form>
+</div>

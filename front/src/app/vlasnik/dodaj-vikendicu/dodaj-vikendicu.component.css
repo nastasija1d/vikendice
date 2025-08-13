@@ -2,41 +2,38 @@
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  height: auto;
   width: 100%;
-  margin: auto;
-  padding: 20px;
+  padding: 30px;
+  background-color: #1c1c1a; /* tamna pozadina */
 }
 
 .form {
   margin-top: 10px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
   width: 600px;
-  padding: 0px 30px 50px 30px;
+  padding: 30px 40px 50px 40px;
   border-radius: 20px;
-  background-color: #1a1a1a;
-  color: #fff;
-  border: 1px solid #333;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  background-color: #f4eee0; /* kartica pozadina */
+  color: #3e3e3e; /* sekundarni tekst */
+  border: 1px solid rgba(160, 137, 44, 0.3);
+  box-shadow: 0 8px 24px rgba(160, 137, 44, 0.25);
 }
 
 .title {
   font-size: 28px;
   font-weight: 600;
-  letter-spacing: -1px;
-  display: flex;
-  align-items: center;
-  color: #00bfff;
+  letter-spacing: -0.5px;
+  color: #4b1e2f; /* tamna šljiva */
   text-align: center;
-  justify-content: center;
+  border-bottom: 1px solid #a0892c3b;
+  padding-bottom: 10px;
 }
 
-/* GRUPISANJE POLJA PO DVA U JEDAN RED */
 .flex {
   display: flex;
-  gap: 15px;
+  gap: 20px;
   width: 100%;
 }
 
@@ -51,23 +48,29 @@
 
 .form label .input,
 .form label select {
-  background-color: #333;
-  color: #fff;
+  background-color: #fff;
+  color: #4b1e2f;
   width: 100%;
-  padding: 10px 12px;
+  padding: 12px 14px;
   outline: none;
-  border: 1px solid rgba(105, 105, 105, 0.397);
-  border-radius: 10px;
+  border: 1px solid #a0892c4f;
+  border-radius: 12px;
   font-size: 16px;
   box-sizing: border-box;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-/* LEPO PORAVNAN TEKST */
+.form label .input:focus,
+.form label select:focus {
+  border-color: #a0892c;
+  box-shadow: 0 0 0 3px rgba(160, 137, 44, 0.2);
+}
+
 .form label .input + span,
 .form label select + span {
-  color: rgba(255, 255, 255, 0.5);
+  color: #3e3e3e91;
   position: absolute;
-  left: 12px;
+  left: 14px;
   top: 0px;
   font-size: 0.9em;
   cursor: text;
@@ -75,7 +78,7 @@
 }
 
 .form label .input:placeholder-shown + span {
-  top: 12.5px;
+  top: 13px;
   font-size: 0.9em;
 }
 
@@ -83,71 +86,71 @@
 .form label .input:valid + span,
 .form label select:focus + span,
 .form label select:valid + span {
-  color: #00bfff;
-  top: 0px;
+  color: #a0892c;
+  top: 0;
   font-size: 0.7em;
   font-weight: 600;
 }
 
 .input {
-  font-size: medium;
+  font-size: 16px;
   width: 100%;
 }
 
 .submit {
   border: none;
   outline: none;
-  padding: 10px;
-  border-radius: 10px;
-  color: #fff;
+  padding: 12px;
+  border-radius: 12px;
+  color: #f4eee0;
   font-size: 16px;
-  transition: 0.3s ease;
-  background-color: #00bfff;
+  background-color: #2e4f4f; /* tamnozelena */
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  font-weight: 500;
+  letter-spacing: 0.5px;
 }
 
 .submit:hover {
-  background-color: #00bfff96;
+  background-color: #a0892c;
+  transform: scale(1.03);
 }
 
-/* Broj bez strelica */
+/* Uklanjanje strelica iz number inputa */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
-
 input[type="number"] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
 
-/* SELECT STIL */
+/* SELECT stil */
 select {
-  background-color: #333;
-  color: #fff;
-  border-radius: 10px;
-  padding: 10px;
-  font-size: medium;
+  background-color: white;
+  color: #4b1e2f;
+  border: 1px solid #a0892c66;
+  border-radius: 12px;
+  padding: 12px;
+  font-size: 16px;
   appearance: none;
 }
 
-/* Scrollbar */
+/* Scrollbar unutar select */
 select::-webkit-scrollbar {
   width: 8px;
 }
 
 select::-webkit-scrollbar-thumb {
-  background-color: #222;
+  background-color: #a0892c;
   border-radius: 10px;
 }
-
 select::-webkit-scrollbar-thumb:hover {
-  background-color: #333;
+  background-color: #4b1e2f;
 }
-
 select::-webkit-scrollbar-track {
-  background-color: #555;
-  border-radius: 10px;
+  background-color: transparent;
 }
 
 .error {
@@ -157,16 +160,10 @@ select::-webkit-scrollbar-track {
   margin-left: 5px;
 }
 
-.kartica-ikonica {
-  width: 32px;
-  height: 20px;
-  margin-left: -45px;
-  z-index: 2;
-}
 .kartica-input {
-  padding-right: 40px; /* prostor za ikonicu unutar input polja */
+  padding-right: 45px;
   background-repeat: no-repeat;
-  background-position: right 10px center;
+  background-position: right 12px center;
 }
 
 .kartica-ikonica {
@@ -179,41 +176,43 @@ select::-webkit-scrollbar-track {
   pointer-events: none;
 }
 
+/* Upload dugme */
 .upload-label {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 10px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: #00bfff;
-  color: white;
-  font-weight: 300;
+  padding: 10px 20px;
+  background-color: #2e4f4f;
+  color: #f4eee0;
+  font-weight: 500;
   font-size: 15px;
-  border: 1px solid rgba(105, 105, 105, 0.397);
+  border: 1px solid rgba(160, 137, 44, 0.4);
   border-radius: 10px;
   cursor: pointer;
   user-select: none;
   width: fit-content;
+  transition: all 0.3s ease;
 }
 
 .upload-label:hover {
-  background: linear-gradient(135deg, #0080ff, #33c7ff);
-  box-shadow: 0 6px 12px rgba(0, 176, 255, 0.7);
-  border-color: #00aaff;
+  background: linear-gradient(135deg, #2e4f4f, #a0892c);
+  box-shadow: 0 6px 12px rgba(160, 137, 44, 0.3);
+  color: white;
 }
 
 .upload-label:active {
-  background: linear-gradient(135deg, #004a8c, #0088d1);
-  box-shadow: 0 2px 6px rgba(0, 100, 180, 0.8);
+  background: #4b1e2f;
+  box-shadow: 0 2px 6px rgba(75, 30, 47, 0.4);
+  color: #f4eee0;
 }
 
 .upload-label span {
-  pointer-events: none; /* da klik ide na label, ne na tekst */
+  pointer-events: none;
 }
 
 .file-upload-active {
-  background-color: #333;  /* svetlo plava kad je fajl izabran */
-  border-color:#333;
-  color: white;
+  background-color: #fff;
+  border-color: #2e4f4f;
+  color: #2e4f4f;
 }

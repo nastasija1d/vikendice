@@ -44,21 +44,23 @@
       <div *ngIf="!emailValidno" class="error">{{ porukaEmail }}</div>
     </label>
 
-    <!-- Adresa -->
-    <label>
-      <input class="input" type="text" [(ngModel)]="korisnik.adresa" 
-          (blur)="proveriAdresu()"   required [ngModelOptions]="{standalone: true}">
-      <span>Adresa</span>
-      <div *ngIf="!adresaValidna" class="error">{{ porukaAdresa }}</div>
-    </label>
+    <div class="flex" style="justify-content: space-between;">
+        <!-- Adresa -->
+      <label>
+        <input class="input" type="text" [(ngModel)]="korisnik.adresa" 
+            (blur)="proveriAdresu()"   required [ngModelOptions]="{standalone: true}">
+        <span>Adresa</span>
+        <div *ngIf="!adresaValidna" class="error">{{ porukaAdresa }}</div>
+      </label>
 
-    <!-- Telefon -->
-    <label>
-      <input class="input" type="text" [(ngModel)]="korisnik.telefon" 
-          (blur)="proveriTelefon()"   required [ngModelOptions]="{standalone: true}">
-      <span>Telefon</span>
-      <div *ngIf="!telefonValidan" class="error">{{ porukaTelefon }}</div>
-    </label>
+      <!-- Telefon -->
+      <label>
+        <input class="input" type="text" [(ngModel)]="korisnik.telefon" 
+            (blur)="proveriTelefon()"   required [ngModelOptions]="{standalone: true}">
+        <span>Telefon</span>
+        <div *ngIf="!telefonValidan" class="error">{{ porukaTelefon }}</div>
+      </label>
+    </div>
 
     <!-- Broj kartice -->
     <label style="position: relative;">

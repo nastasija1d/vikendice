@@ -10,6 +10,8 @@ export class Vikendica {
   vlasnik: string = '';
   slike: string[] = [];
   id: number | null = null;
+  ocena: number;
+  blokirana: number;
 
   constructor(
     naziv: string = '',

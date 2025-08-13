@@ -1,0 +1,37 @@
+<div class="container my-4">
+    <h1 style="color: beige; text-align: center; margin-bottom: 40px;">Sve vikendice</h1>
+  <!-- SEARCH & SORT ROW -->
+  <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+    <!-- CENTERED SEARCH -->
+    <div class="mx-auto search-container">
+      <div class="input-group">
+        <input
+          type="text"
+          class="form-control search-input"
+          [(ngModel)]="searchTerm"
+          placeholder="Pretraži vikendice po nazivu"
+        />
+        <button class="btn btn-primary" (click)="search()">Pretraži</button>
+      </div>
+    </div>
+
+    <!-- SORT SELECT -->
+    <div class="sort-select-container">
+      <select class="form-select sort-select" [(ngModel)]="sortOption" (change)="sortVikendice()">
+        <option value="naziv/asc">Naziv / Rastuće</option>
+        <option value="naziv/desc">Naziv / Opadajuće</option>
+        <option value="mesto/asc">Mesto / Rastuće</option>
+        <option value="mesto/desc">Mesto / Opadajuće</option>
+        <option value="cenaLeto/asc">Cena / Rastuće</option>
+        <option value="cenaLeto/desc">Cena / Opadajuće</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- KARTICE -->
+  <div class="row g-4">
+    <div class="col-12 col-md-6 col-lg-4" *ngFor="let vikendica of vikendice">
+      <app-vikendica-kartica [vikendica]="vikendica"></app-vikendica-kartica>
+    </div>
+  </div>
+</div>

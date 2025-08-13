@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { MapaComponent } from '../mapa/mapa.component';
 import { Vikendica } from '../../models/vikendica';
 import { VikendicaService } from '../../services/vikendica.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class DodajVikendicuComponent implements OnInit{
   slikeFajlovi: File[] = [];
   slikaIzabrana = false;
   servis = inject(VikendicaService)
+  ruter = inject(Router)
   MAX_TOTAL_SIZE_MB = 1;
 
   ngOnInit(): void {
@@ -69,10 +71,55 @@ export class DodajVikendicuComponent implements OnInit{
       (data)=>{
         if (data>0){
           alert('Vikendica uspesno dodata!)');
+          this.ruter.navigate(['/mojevikendice'])
         } else{
           alert('GRESKA!');
         }
       }
     )
   }
+
+  onUcitajJson(event: any): void {
+    const fajl: File = event.target.files[0];
+    if (!fajl) return;
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      try {
+        const podaci = JSON.parse(reader.result as string);
+
+        // Validacija obaveznih polja
+        if (!podaci.naziv || !podaci.mesto || !podaci.telefon || !podaci.opis ||
+            podaci.cenaLeto == null || podaci.cenaZima == null ||
+            podaci.x == null || podaci.y == null) {
+          alert('JSON fajl mora sadržati sva obavezna polja.');
+          return;
+        }
+
+        // Popuni formu
+        this.vikendica.naziv = podaci.naziv;
+        this.vikendica.mesto = podaci.mesto;
+        this.vikendica.telefon = podaci.telefon;
+        this.vikendica.opis = podaci.opis;
+        this.vikendica.cenaLeto = podaci.cenaLeto;
+        this.vikendica.cenaZima = podaci.cenaZima;
+        this.vikendica.x = podaci.x;
+        this.vikendica.y = podaci.y;
+
+        // Postavi koordinate i na mapu
+        if (this.mapaComponent) {
+          this.mapaComponent.x = podaci.x;
+          this.mapaComponent.y = podaci.y;
+        }
+
+      } catch (err) {
+        console.error('Greška prilikom parsiranja JSON fajla:', err);
+        alert('Neispravan JSON fajl.');
+      }
+    };
+
+    reader.readAsText(fajl);
+  }
+
 }

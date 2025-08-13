@@ -1,0 +1,186 @@
+.dashboard-container {
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-start;
+    justify-content:center;
+    margin: auto;
+  }
+  
+  :host {
+    display: block;
+    padding: 20px;
+    color: #fff;
+  }
+  
+  .tabs-container {
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+
+    background-color: #333;  
+    width: 1100px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+  }
+  
+  .tabs {
+    display: flex;
+    background-color: #222;
+    height: 40px;
+  }
+  
+  .tab-button {
+    flex: 1;
+    padding: 7px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ccc;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-bottom: 4px solid #a0892c;
+  }
+  
+  .tab-button:hover {
+    background-color: #444;
+    color: #fff;
+  }
+  
+  .tab-button.active {
+    background-color: #333;
+    color: #a0892c;
+    border-bottom: 4px solid transparent;
+  }
+  
+  .tab-content {
+    padding: 20px;
+    background-color: #333;
+    color: #fff;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    background-color: #333;
+    color: #fff;
+  }
+  
+  th, td {
+    border: 1px solid #a0892c;
+    padding: 8px;
+    text-align: center;
+    vertical-align: middle;
+    
+    background-color: #333;
+    color: #fff;
+  }
+  
+  th {
+    background-color: #a0892cb5;
+    color: white;
+  }
+
+.dugme{
+  width: 100%;
+  padding: 3px;
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.dugme:hover{
+  color: #a0892c;
+}
+
+.sort-wrapper {
+  margin-bottom: 1rem;
+  color: #4b1e2f;
+  font-weight: 500;
+}
+
+.sort-wrapper select {
+  padding: 0.5rem 1rem;
+  border: 1px solid #4b1e2f;
+  border-radius: 8px;
+  background-color: #f4eee0;
+  color: #3e3e3e;
+  font-size: 1rem;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(28, 28, 26, 0.8); /* tvoja pozadinska boja sa providnošću */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.modal-box {
+  background-color: #f4eee0;
+  color: #4b1e2f;
+  padding: 30px;
+  border-radius: 16px;
+  width: 400px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-box textarea {
+  resize: vertical;
+  min-height: 100px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  font-family: inherit;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 30px;
+}
+
+.btn-odbij {
+  background-color: #4b1e2f;
+  color: #f4eee0;
+  padding: 8px 8px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 80px;
+}
+
+.btn-prihvati {
+  background-color: #2e4f4f;
+  color: #f4eee0;
+  padding: 8px 8px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  width: 80px;
+  margin-right: 10px;
+}
+
+.btn-otkazi {
+  background-color: #3e3e3e;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+

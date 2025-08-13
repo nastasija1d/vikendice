@@ -1,17 +1,28 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { RegistracijaComponent } from "./opste/registracija/registracija.component";
-import { LoginComponent } from "./opste/login/login.component";
-import { MapaComponent } from "./vlasnik/mapa/mapa.component";
-import { DodajVikendicuComponent } from "./vlasnik/dodaj-vikendicu/dodaj-vikendicu.component";
+import { RouterLink, RouterOutlet } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Korisnik } from './models/korisnik';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, CommonModule, FormsModule, RouterLink],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'front';
+  korisnik: Korisnik
+
+  isLoggedIn(){
+    return localStorage.getItem('ulogovaniKorisnik') !== null;
+  }
+
+  getRole():number{
+    const kor = localStorage.getItem('ulogovaniKorisnik')
+    this.korisnik = JSON.parse(kor)
+    console.log("TIP KORISNIKA: " + this.korisnik.tip)
+    return this.korisnik.tip;
+  }
 }

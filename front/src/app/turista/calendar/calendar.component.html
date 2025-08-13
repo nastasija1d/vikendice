@@ -1,0 +1,43 @@
+<div class="calendar-container">
+    <!-- header with arrows and month/year -->
+    <div class="header">
+      <button (click)="prevMonth()">&larr;</button>
+      <span class="month-year">
+        {{ monthNames[currentMonth] }} {{ currentYear }}
+      </span>
+      <button (click)="nextMonth()">&rarr;</button>
+    </div>
+  
+    <!-- weekday labels -->
+    <div class="weekdays">
+      <div *ngFor="let wd of weekdays">{{ wd }}</div>
+    </div>
+  
+    <!-- the calendar grid -->
+    <div class="weeks">
+      <div class="week" *ngFor="let week of weeks">
+        <div
+          class="day"
+          *ngFor="let day of week"
+          [class.empty]="!day"
+          [class.start]="isStart(day)"
+          [class.end]="isEnd(day)"
+          [class.in-range]="isInRange(day)"
+          (click)="selectDay(day)"
+        >
+          {{ day || '' }}
+        </div>
+      </div>
+    </div>
+  
+    <div class="date-labels">
+        <span class="date-label">
+          {{ datumOD ? (datumOD | date:'d MMM yy') : '--' }}
+        </span>
+        <img class="arrow" src="arrow.png" alt="Arrow" />
+        <span class="date-label">
+          {{ datumDO ? (datumDO | date:'d MMM yy') : '--' }}
+        </span>
+      </div>
+  </div>
+  

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,13 +26,7 @@ public class KorisnikController {
 
     @PostMapping("/login")
     public Korisnik login(@RequestBody LoginInfo loginDTO) {
-        //System.out.println("Login attempt: " + loginDTO.getUsername() + ", " + loginDTO.getLozinka());
-        Korisnik korisnik = new KorisnikRepo().login(loginDTO.getUsername(), loginDTO.getLozinka());
-        if (korisnik != null) {
-            return korisnik;
-        } else {
-            return null;
-        }
+        return  new KorisnikRepo().login(loginDTO.getUsername(), loginDTO.getLozinka());
     }   
     
     @PostMapping("/registruj")
@@ -38,7 +34,7 @@ public class KorisnikController {
             @RequestPart("korisnik") Korisnik korisnik,
             @RequestPart(value = "slika", required = false) MultipartFile slika) {
 
-        String imeFajla = "default.jpg";
+        String imeFajla = "default.png";
 
         if (slika != null && !slika.isEmpty()) {
             try {
@@ -85,6 +81,11 @@ public class KorisnikController {
     ) {
         System.out.println("Izmena profila: " + username + ", " + ime + ", " + prezime + ", " + adresa + ", " + telefon + ", " + email + ", " + kartica);
         return new KorisnikRepo().izmeniPodatke(username, ime, prezime, adresa, telefon, email, kartica, slika);
+    }
+
+    @GetMapping("/dohvati/{id}")
+    public Korisnik dohvatiKorisnika(@PathVariable String id){
+        return new KorisnikRepo().dohvatiKorisnika(id);
     }
 
 

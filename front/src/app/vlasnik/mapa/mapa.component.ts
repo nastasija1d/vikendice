@@ -15,7 +15,7 @@ L.Icon.Default.mergeOptions({
   standalone: true,
   imports: [LeafletModule],
   templateUrl: './mapa.component.html',
-  styleUrl: './mapa.component.css'
+  styleUrls: ['./mapa.component.css']  // ispravljeno sa styleUrl na styleUrls
 })
 export class MapaComponent implements AfterViewInit, OnChanges {
   private map!: L.Map;
@@ -26,7 +26,6 @@ export class MapaComponent implements AfterViewInit, OnChanges {
   private defaultY = 20.4489;
   private defaultZoom = 14;
 
-  // Input properties sa setterima
   private _x = this.defaultX;
   private _y = this.defaultY;
 
@@ -48,15 +47,34 @@ export class MapaComponent implements AfterViewInit, OnChanges {
     return this._y;
   }
 
+  // Novi inputi za širinu i visinu sa default vrednostima
+  @Input() width: number = 500;
+  @Input() height: number = 300;
+
   @Output() koordinate = new EventEmitter<{ x: number, y: number }>();
 
   ngAfterViewInit(): void {
+    this.applyMapSize();
     this.initMap();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.map && (changes['x'] || changes['y'])) {
       this.updateMarker();
+    }
+    if (changes['width'] || changes['height']) {
+      this.applyMapSize();
+    }
+  }
+
+  private applyMapSize(): void {
+    const mapDiv = document.getElementById('map');
+    if (mapDiv) {
+      mapDiv.style.width = this.width + 'px';
+      mapDiv.style.height = this.height + 'px';
+      if (this.map) {
+        this.map.invalidateSize(); // osvežava Leaflet mapu nakon promene dimenzija
+      }
     }
   }
 

@@ -20,6 +20,10 @@ export class KorisnikService {
     return this.http.post<Korisnik>(this.url + '/login', { username, lozinka });
   }
 
+  dohvatiKorisnika(username: string){
+    return this.http.get<Korisnik>(this.url + "/dohvati/" + username);
+  }
+
   promeniLozinku(username: string, staraLozinka: string, novaLozinka: string) {
     return this.http.post<number>(this.url + '/promeniLozinku', {
       username: username,

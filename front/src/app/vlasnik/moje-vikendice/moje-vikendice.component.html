@@ -1,0 +1,102 @@
+<div class="vikendice-container">
+  <h1 style="text-align: center;color: beige;">Moje vikendice</h1>
+  <div style="width: 100%; display: flex; justify-content: right; margin-bottom: 20px; padding-right: 20%;">
+    <button (click)="dodajVikendicu()">Dodaj vikendicu</button>
+  </div>
+  <div class="vikendica-kartica" *ngFor="let vikendica of vikendice">
+
+    <div class="galerija-wrapper" >
+      <div class="galerija" #scrollContainer>
+        <div class="slika-container" *ngFor="let slika of vikendica.slike">
+          <img [src]="'http://localhost:8080/' + slika" />
+        </div>
+      </div>
+    </div>
+
+    <div class="info">
+      <h3>{{ vikendica.naziv }}</h3>
+      <p>{{ vikendica.opis }}</p>
+    </div>
+
+    <div class="dugmad">
+      <button (click)="otvoriDetalje(vikendica)">Detaljnije</button>
+      <button (click)="izmeni(vikendica)">Izmeni</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- DIALOG ZA DETALJE -->
+<div class="overlay" *ngIf="otvorenaDetaljnaVikendica">
+  <div class="detaljna-kartica">
+    <button class="zatvori" (click)="zatvoriDetalje()">X</button>
+
+    <div class="galerija-wrapper" style="height: 500px;">
+      <div class="galerija" #scrollContainer>
+        <div class="slika-container" *ngFor="let slika of otvorenaDetaljnaVikendica.slike">
+          <img [src]="'http://localhost:8080/' + slika" />
+        </div>
+      </div>
+    </div>
+
+    <div class="detalji">
+      <h2>{{ otvorenaDetaljnaVikendica.naziv }}</h2>
+      <p><strong>Mesto:</strong> {{ otvorenaDetaljnaVikendica.mesto }}</p>
+      <p><strong>Telefon:</strong> {{ otvorenaDetaljnaVikendica.telefon }}</p>
+      <p><strong>Opis:</strong> {{ otvorenaDetaljnaVikendica.opis }}</p>
+      <p><strong>Cena leto:</strong> {{ otvorenaDetaljnaVikendica.cenaLeto }}</p>
+      <p><strong>Cena zima:</strong> {{ otvorenaDetaljnaVikendica.cenaZima }}</p>
+
+
+
+      <!-- Dugmad -->
+      <div class="dugmad-wrapper">
+        <button class="dugme komentari" (click)="prikaziKomentare()">Pogledaj komentare</button>
+        <button class="dugme rezervacije" (click)="prikaziRezervacije()">Pogledaj rezervacije</button>
+      </div>
+
+      <!-- Tabela komentara -->
+      <div *ngIf="prikazKomentara" class="tabela">
+                <div class="komentari-kartica">
+          <h3>Komentari gostiju</h3>
+          <div *ngFor="let komentar of komentari" class="komentar">
+            <div class="komentar-header">
+              <span class="ime">{{ komentar.ime }}</span>
+              <span class="ocena">{{ komentar.broj }} ★</span>
+            </div>
+            <p class="tekst">{{ komentar.tekst }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabela rezervacija -->
+      <div *ngIf="prikazRezervacija" class="tabela">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Korisnik</th>
+              <th>Datum OD</th>
+              <th>Datum DO</th>
+              <th>Broj gostiju</th>
+              <th>Ukupan iznos</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of rezervacije">
+              <td>{{a.id}}</td>
+              <td>{{a.turista}}</td>
+              <td>{{a.datumOD ? (a.datumOD | date:'d MMM yyyy') : '--' }}</td>
+              <td>{{a.datumDO ? (a.datumDO | date:'d MMM yyyy') : '--' }}</td>
+              <td>{{a.odrasli}} O, {{a.deca}} D</td>
+              <td>{{a.cena| number:'1.0-0'}} RSD</td>
+              <td>{{statusRezervacije(a.status)}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+</div>

@@ -1,6 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Vikendica } from '../models/vikendica';
+import { Ocena } from '../models/ocena';
 
 @Injectable({
   providedIn: 'root'
@@ -12,6 +13,23 @@ export class VikendicaService {
 
   dohvatiVikendicu(id: number){
     return this.http.get<Vikendica>(this.url + '/dohvati/' + id);
+  }
+
+  dohvatiOceneZaVikendicu(id: number){
+    return this.http.get<Ocena[]>(this.url + "/dohvatiocene/" + id)
+  }
+
+  dohvatiSveVikendice(searchTerm?: string){
+    let params = new HttpParams();
+    if (searchTerm) {
+      params = params.set('search', searchTerm);
+    }
+
+    return this.http.get<Vikendica[]>(this.url +'/sve',{ params });
+  }
+
+  dohvatiSveVikendiceZaKorisnika(id : string){
+    return this.http.get<Vikendica[]>(this.url + '/dohvatizakorisnika/' + id);
   }
 
   dodajSlikeVikendici(id: number, slike: File[]) {

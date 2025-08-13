@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.example.backend.db.VikendicaRepo;
+import com.example.backend.models.Ocena;
 import com.example.backend.models.Vikendica;
 
 @RestController
@@ -28,11 +29,31 @@ import com.example.backend.models.Vikendica;
 @CrossOrigin(origins = "http://localhost:4200")
 public class VikendicaController {
 
+    //dohvati vikendicu sa datim ID
     @GetMapping("/dohvati/{id}")
     public Vikendica dohvatiVikendicu(@PathVariable int id){
         return new VikendicaRepo().dohvatiVikendicu(id);
     }
 
+    //dohvati sve ocene za vikendicu ID
+    @GetMapping("/dohvatiocene/{id}")
+    public List<Ocena> dohvatiSveOceneZaVikendicu(@PathVariable int id){
+        return new VikendicaRepo().dohvatiOceneZaVikendicu(id);
+    }
+
+    //dohvati sve vikendice (search param)
+    @GetMapping("/sve")
+    public List<Vikendica> dohvatiSveVikendice(@RequestParam(required = false) String search) {
+        return new VikendicaRepo().dohvatiSveVikendice(search);
+    }
+
+    //dohvati sve vikendice za korisnika ID
+    @GetMapping("/dohvatizakorisnika/{id}")
+    public List<Vikendica> dohvatiVikendiceZaKorisnika(@PathVariable String id) {
+        return new VikendicaRepo().dohvatiSveVikendiceVlasnika(id);
+    }
+
+    //dodaj slike vikendici ID
     @PostMapping("/dodajslike/{id}")
     public List<String> dodajSlikeVikendici(@PathVariable int id,
             @RequestPart(value = "slike", required = false) MultipartFile[] slike) {
@@ -81,6 +102,7 @@ public class VikendicaController {
         return putanje;
     }
 
+    //dodaj novu vikendicu u bazu podataka sa slikama
     @PostMapping(value = "/dodaj", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public int dodajVikendicu(
             @RequestParam String naziv,
@@ -148,6 +170,7 @@ public class VikendicaController {
         return idVik;
     }
 
+    //obrisi sliku vikendice iz baze i fajl sistema
     @DeleteMapping("/obrisisliku")
     public int obrisiSliku(@RequestParam String putanja) {
         try {
@@ -184,6 +207,7 @@ public class VikendicaController {
         }
     }
 
+    //azuriraj podatke o vikendici ID
     @PostMapping("/azuriraj/{id}")
     public int azurirajVikendicu(
             @PathVariable int id,
@@ -213,7 +237,5 @@ public class VikendicaController {
         
         
     }
+
 }
-
-    
-

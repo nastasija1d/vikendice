@@ -1,0 +1,115 @@
+<div class="dashboard-container">
+  <div class="tabs-container">
+    <div class="tabs">
+      <button  class="tab-button" [class.active]="activeTab === 'aktivne'" (click)="setActiveTab('aktivne')">
+        Nove rezervacije
+      </button>
+      <button
+        class="tab-button" [class.active]="activeTab === 'arhiva'" (click)="setActiveTab('arhiva')">
+        Arhiva
+      </button>
+    </div>
+
+    <div *ngIf="activeTab === 'aktivne'" class="tab-content">
+        <p style="width: 100%;text-align: center; margin-top: 30px;"><b>Novi zahtevi za rezervacije</b></p>
+        <div class="sort-wrapper">
+          <label for="sortSelect">Sortiraj po:</label>
+            <select [(ngModel)]="kriterijumSortiranja" (change)="sortirajAktivne()">
+              <option value="datumOD">Datum početka</option>
+              <option value="vikendica">Vikendica</option>
+              <option value="turista">Turista</option>
+            </select>
+        </div>
+
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Naziv vikendice</th>
+              <th>Ime Prezime</th>
+              <th>Username</th>
+              <th>Datum OD</th>
+              <th>Datum DO</th>
+              <th>Broj gostiju</th>
+              <th>Ukupan iznos</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of aktivne">
+              <td>{{a.id}}</td>
+              <td>{{ a.vikendica.naziv }}</td>
+              <td>{{a.turistaKlasa.ime}} {{a.turistaKlasa.prezime}}</td>
+              <td>{{a.turista}}</td>
+              <td>{{a.datumOD ? (a.datumOD | date:'d MMM yyyy') : '--' }}</td>
+              <td>{{a.datumDO ? (a.datumDO | date:'d MMM yyyy') : '--' }}</td>
+              <td>{{a.odrasli}}O + {{a.deca}}D</td>
+              <td>{{a.cena| number:'1.0-0'}} RSD</td>
+              <td>
+                <button (click)="prihvati(a)" class="btn-prihvati">PRIHVATI</button>
+                <button (click)="otvoriOdbijanje(a.id)" class="btn-odbij">ODBIJ</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <!-- Modal za odbijanje -->
+        <div class="modal-overlay" *ngIf="modalVidljiv">
+          <div class="modal-box">
+            <h3>Odbijanje rezervacije #{{odabranaRezervacijaId}}</h3>
+            <textarea [(ngModel)]="komentarOdbijanje" placeholder="Unesite komentar za odbijanje..."></textarea>
+            <div class="modal-buttons">
+              <button class="btn-odbij" (click)="potvrdiOdbijanje()">Pošalji</button>
+              <button class="btn-otkazi" (click)="zatvoriModal()">Otkaži</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="activeTab === 'arhiva'" class="tab-content">
+        <p style="width: 100%;text-align: center; margin-top: 30px;"><b>Arhiva svih rezervacija</b></p>
+        <div class="sort-wrapper">
+          <label for="sortSelect">Sortiraj po:</label>
+            <select [(ngModel)]="kriterijumSortiranja2" (change)="sortirajArhiva()">
+              <option value="datumOD">Datum početka</option>
+              <option value="vikendica">Vikendica</option>
+              <option value="turista">Turista</option>
+            </select>
+        </div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Naziv vikendice</th>
+              <th>Ime Prezime</th>
+              <th>Datum OD</th>
+              <th>Ocena</th>
+              <th>Komentar</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let a of arhiva">
+              <td>{{a.id}}</td>
+              <td>{{ a.vikendica.naziv }}</td>
+              <td>{{a.turistaKlasa.ime}} {{a.turistaKlasa.prezime}}</td>
+              <td>{{a.datumOD ? (a.datumOD | date:'d MMM yyyy') : '--' }}</td>
+              <ng-container *ngIf="a.ocena !== 0; else bezOcene">
+                <td>{{ a.ocena }}</td>
+                <td style="max-width: 400px;">{{ a.ocenaText }}</td>
+              </ng-container>
+
+              <ng-template #bezOcene>
+                <td colspan="2">
+                  {{statusRezervacije(a.status)}}
+                </td>
+              </ng-template>
+            </tr>
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+
+
+
+  

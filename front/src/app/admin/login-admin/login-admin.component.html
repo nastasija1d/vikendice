@@ -1,0 +1,17 @@
+<div class="container">
+  <form class="form" novalidate>
+    <p class="title">ADMIN LOG IN</p>
+    <label>
+      <input class="input" type="text" [(ngModel)]="username" 
+            required [ngModelOptions]="{standalone: true}">
+      <span>Username</span>
+    </label>
+    <label>
+      <input class="input" type="password" [(ngModel)]="lozinka" 
+        required [ngModelOptions]="{standalone: true}">
+      <span>Lozinka</span>
+      <div class="error">{{ greska }}</div>
+    </label>
+    <button class="submit" (click)="login()">Potvrdi</button>
+      </form>
+</div>

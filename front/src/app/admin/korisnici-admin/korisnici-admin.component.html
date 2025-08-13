@@ -1,0 +1,34 @@
+<div class="dashboard-container">
+  <div class="tabs-container">
+    <div class="tabs">
+      <button  class="tab-button" [class.active]="activeTab === 'vlasnici'" (click)="setActiveTab('vlasnici')">
+        Vlasnici
+      </button>
+      <button
+        class="tab-button" [class.active]="activeTab === 'turisti'" (click)="setActiveTab('turisti')">
+        Turisti
+      </button>
+    </div>
+
+    <div *ngIf="activeTab === 'vlasnici'" class="tab-content">
+      <div class="row g-4">
+        <div class="col-12 col-md-6 col-lg-4" *ngFor="let korisnik of vlasnici" >
+          <app-profil-kartica2 [korisnik]="korisnik"></app-profil-kartica2>
+        </div>
+      </div>
+    </div>
+
+
+    <div *ngIf="activeTab === 'turisti'" class="tab-content">
+      <div class="row g-4">
+        <div class="col-12 col-md-6 col-lg-4" *ngFor="let korisnik of turisti" >
+          <app-profil-kartica2 [korisnik]="korisnik"></app-profil-kartica2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+  

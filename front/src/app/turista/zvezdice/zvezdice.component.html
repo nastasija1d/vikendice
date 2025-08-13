@@ -1,0 +1,13 @@
+<div class="zvezdice">
+  <ng-container *ngFor="let _ of [0,1,2,3,4]; let i = index">
+    <span
+      class="zvezda"
+      [ngClass]="tipZvezdice(i)"
+      (click)="odaberi(i + 1)"
+      (mouseover)="naHover(i + 1)"
+      (mouseleave)="napusti()"
+    >
+      ★
+    </span>
+  </ng-container>
+</div>

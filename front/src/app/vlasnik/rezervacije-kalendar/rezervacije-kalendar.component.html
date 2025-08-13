@@ -1,0 +1,17 @@
+<div class="kalendar-wrapper">
+  <full-calendar [options]="calendarOptions"></full-calendar>
+</div>
+
+<div class="modal-overlay" *ngIf="modalVidljiv">
+  <div class="modal-box">
+    <button class="btn-odbij" (click)="zatvoriModal()" style="width: 30px;margin-left: 300px;">X</button>
+    <h3>{{naslov}}</h3>
+    <p><strong>Period: </strong>{{period}}</p>
+    <textarea [(ngModel)]="komentarOdbijanje" placeholder="Unesite komentar za odbijanje..."></textarea>
+    <p style="color: red; text-align: center; font-size: small;" *ngIf="obavezanKomentar">Morate uneti razlog odbijanja!</p>
+    <div class="modal-buttons">
+      <button class="btn-odbij" (click)="potvrdiOdbijanje()">Otkazi zahtev</button>
+      <button *ngIf="!potvrdjena" class="btn-otkazi" (click)="prihvati()">Prihvati zahtev</button>
+    </div>
+  </div>
+</div>

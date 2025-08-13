@@ -1,0 +1,125 @@
+.calendar-container {
+    margin-top: 15px;
+    height: 400px;
+    width: 280px;
+    background-color: #3333338e;
+    border-radius: 15px;
+    padding: 12px;
+    font-family: sans-serif;
+    color: #fff;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2a2a2a;
+    padding: 4px 8px;
+    border-radius: 6px;
+    margin-bottom: 8px;
+  }
+  .header button {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    cursor: pointer;
+    color: #a0892c;
+  }
+  .month-year {
+    font-weight: bold;
+    color: #a0892c;
+  }
+  
+  .weekdays {
+    display: flex;
+    background-color: #2a2a2a;
+    border-radius: 6px;
+    padding: 4px 0;
+    margin-bottom: 5px;
+  }
+  .weekdays div {
+    width: 36px;
+    text-align: center;
+    font-weight: 500;
+    color: #fff;
+  }
+  
+  .weeks .week {
+    display: flex;
+  }
+
+  .weeks{
+    min-height: 250px;
+  }
+  
+  .day {
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    text-align: center;
+    margin: 2px;
+    cursor: pointer;
+    border-radius: 6px;
+    user-select: none;
+    color: #fff;
+  }
+  .day.empty {
+    cursor: default;
+    color: #555;
+  }
+  
+  .day.start,
+  .day.end {
+    background-color: #a0892c;
+    color: #fff;
+  }
+  
+  .day.in-range {
+    background-color: #a0892c;
+    color: #fff;
+  }
+  
+  .save-btn {
+    margin-top: 12px;
+    width: 100%;
+    padding: 8px;
+    border: none;
+    border-radius: 6px;
+    background-color: #00bfffd7;
+    color: #fff;
+    font-size: 1em;
+    cursor: pointer;
+  }
+
+  .save-btn:hover {
+    background-color: #00bfff;
+  }
+
+  .date-labels {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .date-label {
+    background-color: #2a2a2a;
+    color: #fff;
+    padding: 4px 8px;
+    border-radius: 4px;
+    min-width: 90px;
+    text-align: center;
+  }
+  
+  .separator {
+    margin: 0 8px;
+    color: #fff;
+  }
+
+  .arrow{
+    width: 35px;
+    height: 20px;
+    margin: 10px;
+  }
+  
+  

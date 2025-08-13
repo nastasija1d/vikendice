@@ -1,0 +1,168 @@
+.rezervacija-kartica {
+  background-color: #f4eee0;
+  color: #4b1e2f;
+  padding: 2rem;
+  border-radius: 2rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  max-width: 600px;
+  margin: 2rem auto;
+  font-family: 'Segoe UI', sans-serif;
+  transition: transform 0.3s ease;
+}
+
+.rezervacija-kartica:hover {
+  transform: translateY(-5px);
+}
+
+.rezervacija-kartica h2 {
+  font-size: 1.8rem;
+  color: #4b1e2f;
+  margin-bottom: 1rem;
+}
+
+.rezervacija-kartica p {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+  color: #3e3e3e;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+p{
+    padding-left: 8px;
+}
+
+.input {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(160, 137, 44, 0.6);
+  background-color: #fff;
+  font-size: 1rem;
+  color: #3e3e3e;
+  transition: border-color 0.3s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #a0892c;
+  box-shadow: 0 0 0 3px rgba(160, 137, 44, 0.2);
+}
+
+.kartica-ikonica {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 24px;
+}
+
+
+textarea {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  border: 1px solid rgba(160, 137, 44, 0.6);
+  font-size: 1rem;
+  resize: vertical;
+  min-height: 100px;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+button[type="submit"] {
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  background-color: #2e4f4f;
+  color: #f4eee0;
+  border: none;
+  border-radius: 1.5rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #a0892c;
+}
+
+.error {
+  color: crimson;
+  font-size: 0.85rem;
+  margin-top: 0.3rem;
+}
+.form label {
+  position: relative;
+  width: 100%;
+}
+
+.form label .input,
+.form label select,
+.form textarea {
+  background-color: #f4eee0;
+  color: #4b1e2f;
+  width: 100%;
+  padding: 10px 12px;
+  outline: none;
+  border: 1px solid #3e3e3e;
+  border-radius: 10px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.form label .input + span,
+.form label select + span,
+.form textarea + span {
+  color: #3e3e3e;
+  position: absolute;
+  left: 12px;
+  top: 0px;
+  font-size: 0.9em;
+  cursor: text;
+  transition: 0.3s ease;
+}
+
+.form label .input:placeholder-shown + span {
+  top: 12.5px;
+  font-size: 0.9em;
+}
+
+.form label .input:focus + span,
+.form label .input:valid + span,
+.form label textarea:focus + span,
+.form label textarea:valid + span {
+  color: #4b1e2f;
+  top: 0px;
+  font-size: 0.7em;
+  font-weight: 600;
+}
+
+.input {
+  font-size: medium;
+  width: 100%;
+}
+
+.kartica-ikonica {
+  width: 32px;
+  height: 20px;
+  margin-left: -45px;
+  z-index: 2;
+}
+
+.kartica-input {
+  padding-right: 40px;
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+}
+
+.kartica-ikonica {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  transform: translateY(-50%);
+  width: 40px;
+  height: auto;
+  pointer-events: none;
+}
