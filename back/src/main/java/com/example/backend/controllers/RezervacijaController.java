@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.backend.db.RezervacijaRepo;
 import com.example.backend.models.OdbijanjeDTO;
 import com.example.backend.models.Rezervacija;
+import com.example.backend.models.VikendicaMesecRezervacijeDTO;
+import com.example.backend.models.ZauzetostDTO;
 
 @RestController
 @RequestMapping("/rezervacije")
@@ -62,4 +64,13 @@ public class RezervacijaController {
         return new RezervacijaRepo().dohvatiSveZaVikendicu(id);
     }
     
+    @GetMapping("/rezervacijepomesecima/{id}")
+    public List<VikendicaMesecRezervacijeDTO> dohvatiBrojRezervacijaPoMesecima(@PathVariable String id){
+        return new RezervacijaRepo().dohvatiBrojRezervacijaPoMesecima(id);
+    }
+
+    @GetMapping("/rezervacijepovikendima/{id}")
+    public List<ZauzetostDTO> dohvatiBrojRezervacijaVikendom(@PathVariable String id){
+        return new RezervacijaRepo().getZauzetostPoVikendicama(id);
+    }
 }

@@ -1,0 +1,38 @@
+<div class="home-container">
+  <h1 class="title">Dobrodošli na sistem za rezervaciju vikendica</h1>
+  
+  <div class="cards-grid">
+    <div class="stat-card">
+      <h2>Ukupan broj vikendica</h2>
+      <p class="number">{{ stats.totalVikendice }}</p>
+    </div>
+
+    <div class="stat-card">
+      <h2>Ukupan broj turista</h2>
+      <p class="number">{{ stats.totalTuristi }}</p>
+    </div>
+
+    <div class="stat-card">
+      <h2>Ukupan broj vlasnika</h2>
+      <p class="number">{{ stats.totalVlasnici }}</p>
+    </div>
+
+    <div class="stat-card wide">
+      <h2>Broj rezervacija</h2>
+      <div class="rezervacije">
+        <div>
+          <span class="rez-label">Poslednja 24h:</span>
+          <span class="rez-value">{{ stats.rezervacije['24h'] }}</span>
+        </div>
+        <div>
+          <span class="rez-label">Poslednjih 7 dana:</span>
+          <span class="rez-value">{{ stats.rezervacije['7d'] }}</span>
+        </div>
+        <div>
+          <span class="rez-label">Poslednjih 30 dana:</span>
+          <span class="rez-value">{{ stats.rezervacije['30d'] }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

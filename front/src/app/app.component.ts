@@ -22,7 +22,6 @@ export class AppComponent {
   getRole():number{
     const kor = localStorage.getItem('ulogovaniKorisnik')
     this.korisnik = JSON.parse(kor)
-    console.log("TIP KORISNIKA: " + this.korisnik.tip)
     return this.korisnik.tip;
   }
 }

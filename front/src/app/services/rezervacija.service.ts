@@ -2,6 +2,7 @@ import { Rezervacija } from './../models/rezervacija';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Vikendica } from '../models/vikendica';
+import { statistikaVikendice } from '../models/statistikaVikendice';
 
 @Injectable({
   providedIn: 'root'
@@ -48,4 +49,12 @@ export class RezervacijaService {
     return this.http.get<Rezervacija[]>(this.url+"/zavikendicu/"+id)
   }
   
+  dohvatiRezPoMesecima(username : string){
+    return this.http.get<statistikaVikendice[]>(this.url + "/rezervacijepomesecima/"+username)
+  }
+
+  dohvatiRezPoVikendima(username: string){
+    return this.http.get<statistikaVikendice[]>(this.url + "/rezervacijepovikendima/"+username)    
+  }
+
 }

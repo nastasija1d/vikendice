@@ -1,0 +1,72 @@
+:host {
+  display: block;
+  background-color: #1c1c1a;
+  min-height: 100vh;
+  padding: 40px;
+  color: #4b1e2f;
+  font-family: 'Poppins', sans-serif;
+}
+
+.title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #f4eee0;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 30px;
+  justify-items: center;
+}
+
+.stat-card {
+  background-color: #f4eee0;
+  border-radius: 20px;
+  padding: 25px;
+  width: 100%;
+  max-width: 340px;
+  box-shadow: 0 4px 12px rgba(160, 137, 44, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.stat-card.wide {
+  grid-column: span 2;
+}
+
+.stat-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(160, 137, 44, 0.6);
+}
+
+.stat-card h2 {
+  font-size: 1.2rem;
+  color: #4b1e2f;
+  margin-bottom: 10px;
+}
+
+.number {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #2e4f4f;
+}
+
+.rezervacije {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.rez-label {
+  font-weight: 500;
+  color: #3e3e3e;
+  margin-right: 5px;
+}
+
+.rez-value {
+  color: #2e4f4f;
+  font-weight: bold;
+}

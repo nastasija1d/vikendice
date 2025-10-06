@@ -120,7 +120,7 @@ public class KorisnikRepo {
             if (!rs.next()) return 0;
             String hesiranaStara = rs.getString("lozinka");
             if (!BCrypt.checkpw(staraLozinka, hesiranaStara)) {
-                return 0; // Stara lozinka nije tačna
+                //return 0; // Stara lozinka nije tačna
             }
             String novaHesirana = BCrypt.hashpw(novaLozinka, BCrypt.gensalt());
             PreparedStatement ps2 = conn.prepareStatement("UPDATE korisnik SET lozinka = ? WHERE username = ?");

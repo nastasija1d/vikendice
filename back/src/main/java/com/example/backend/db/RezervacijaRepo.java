@@ -4,13 +4,19 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.example.backend.models.Korisnik;
 import com.example.backend.models.Rezervacija;
 import com.example.backend.models.Vikendica;
+import com.example.backend.models.VikendicaMesecRezervacijeDTO;
+import com.example.backend.models.ZauzetostDTO;
 
 public class RezervacijaRepo {
 
@@ -237,6 +243,116 @@ public class RezervacijaRepo {
         return 0;
     }
     
+    public List<VikendicaMesecRezervacijeDTO> dohvatiBrojRezervacijaPoMesecima(String vlasnikUsername) {
+        List<VikendicaMesecRezervacijeDTO> rezultat = new ArrayList<>();
+
+        // Generišemo sve mesece 1..12, pa CROSS JOIN sa vikendicama vlasnika,
+        // pa LEFT JOIN sa agregiranim rezervacijama — COALESCE na 0.
+        String sql =
+            "SELECT v.id AS vikendica_id, v.naziv, m.mesec AS mesec, COALESCE(cnt.broj, 0) AS broj " +
+            "FROM ( " +
+            "   SELECT 1 AS mesec UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL " +
+            "   SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7 UNION ALL SELECT 8 UNION ALL " +
+            "   SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 UNION ALL SELECT 12 " +
+            ") m " +
+            "CROSS JOIN ( " +
+            "   SELECT id, naziv FROM Vikendica WHERE vlasnik_username = ? " +
+            ") v " +
+            "LEFT JOIN ( " +
+            "   SELECT r.idVikendica, MONTH(r.datumOD) AS mesec, COUNT(*) AS broj " +
+            "   FROM Rezervacija r " +
+            "   JOIN Vikendica vv ON vv.id = r.idVikendica " +
+            "   WHERE vv.vlasnik_username = ? AND r.status > 2 " +
+            "   GROUP BY r.idVikendica, MONTH(r.datumOD) " +
+            ") cnt ON cnt.idVikendica = v.id AND cnt.mesec = m.mesec " +
+            "ORDER BY v.naziv, m.mesec";
+
+        try (Connection conn = DB.source().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            // isti parametar ide na oba mesta (u podupitima)
+            ps.setString(1, vlasnikUsername);
+            ps.setString(2, vlasnikUsername);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                // Mapiranje: jedan DTO po vikendici, punimo niz[12]
+                Map<Integer, VikendicaMesecRezervacijeDTO> mapa = new LinkedHashMap<>();
+
+                while (rs.next()) {
+                    int vikendicaId = rs.getInt("vikendica_id");
+                    String naziv = rs.getString("naziv");
+                    int mesec = rs.getInt("mesec"); // 1..12
+                    int broj = rs.getInt("broj");
+
+                    VikendicaMesecRezervacijeDTO dto = mapa.get(vikendicaId);
+                    if (dto == null) {
+                        dto = new VikendicaMesecRezervacijeDTO(vikendicaId, naziv);
+                        mapa.put(vikendicaId, dto);
+                    }
+                    dto.getMeseci()[mesec - 1] = broj; // u niz na poziciju 0..11
+                }
+
+                rezultat.addAll(mapa.values());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return rezultat;
+    }
+
+    public List<ZauzetostDTO> getZauzetostPoVikendicama(String username) {
+        List<ZauzetostDTO> rezultat = new ArrayList<>();
+
+        String sql = "SELECT v.id, v.naziv, r.datumOd, r.datumDo " +
+                    "FROM vikendica v " +
+                    "JOIN rezervacija r ON v.id = r.idvikendica " +
+                    "WHERE v.vlasnik_Username = ? and r.status>2";
+
+        try (Connection conn = DB.source().getConnection();
+            PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, username);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                Map<Integer, ZauzetostDTO> mapa = new HashMap<>();
+
+                while (rs.next()) {
+                    int vikendicaId = rs.getInt("id");
+                    String naziv = rs.getString("naziv");
+                    LocalDate datumOd = rs.getDate("datumOd").toLocalDate();
+                    LocalDate datumDo = rs.getDate("datumDo").toLocalDate();
+
+                    ZauzetostDTO dto = mapa.getOrDefault(
+                        vikendicaId, new ZauzetostDTO(vikendicaId, naziv, 0, 0)
+                    );
+
+                    // prolazak kroz sve dane u rezervaciji
+                    LocalDate d = datumOd;
+                    while (!d.isAfter(datumDo)) {
+                        DayOfWeek dan = d.getDayOfWeek();
+                        if (dan == DayOfWeek.SATURDAY || dan == DayOfWeek.SUNDAY) {
+                            dto.setVikendi(dto.getVikendi() + 1);
+                        } else {
+                            dto.setRadniDani(dto.getRadniDani() + 1);
+                        }
+                        d = d.plusDays(1);
+                    }
+
+                    mapa.put(vikendicaId, dto);
+                }
+
+                rezultat.addAll(mapa.values());
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rezultat;
+    }
+
+
     private void azurirajStatuseRezervacija() {
         try (Connection con = DB.source().getConnection()) {
             PreparedStatement ps = con.prepareStatement("SELECT id, datumod, datumdo, status FROM rezervacija");

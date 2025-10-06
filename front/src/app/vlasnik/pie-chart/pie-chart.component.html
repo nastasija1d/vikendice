@@ -1,0 +1,36 @@
+<div *ngIf="data.length === 0" class="empty-message">
+    Nema porudzbina za uneti period
+</div>
+  
+<div *ngIf="data.length > 0" >
+  <div class="chart-container" [style.width.px]="width + 100" [style.height.px]="height + legendHeight" style="margin: auto;"> 
+
+    <svg [attr.width]="width" [attr.height]="height" class="pie-svg">
+      <g [attr.transform]="'translate(' + width/2 + ',' + height/2 + ')'">
+        <path
+          *ngFor="let arc of arcs; let i = index"
+          [attr.d]="describeArc(0, 0, getRadius(i), arc.startAngle, arc.endAngle)"
+          [attr.fill]="arc.color"
+          (mouseenter)="onMouseEnter($event,i)"
+          (mousemove)="moveTooltip($event)"
+          (mouseleave)="onMouseLeave()"
+          class="pie-segment">
+        </path>
+      </g>
+    </svg>
+
+    <div *ngIf="tooltipVisible"
+      [ngStyle]="{'position': 'fixed', 'top.px': tooltipY, 'left.px': tooltipX, 'background': '#333',  'color': '#fff', 
+      'padding': '5px 10px', 'border-radius': '4px', 'pointer-events': 'none', 'z-index': 1000, 'font-size': '14px' }">
+      {{data[hoveredIndex].naziv}} ({{data[hoveredIndex].broj}})
+    </div>
+  
+    <div class="legend">
+      <div *ngFor="let arc of arcs" class="legend-item">
+        <span class="color-box" [style.background]="arc.color"></span>
+        {{ arc.naziv }} ({{ arc.broj }})
+      </div>
+    </div>
+  </div>
+
+</div>

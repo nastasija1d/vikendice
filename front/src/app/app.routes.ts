@@ -17,30 +17,37 @@ import { KorisniciAdminComponent } from './admin/korisnici-admin/korisnici-admin
 import { VikendiceAdminComponent } from './admin/vikendice-admin/vikendice-admin.component';
 import { AzurirajKorisnikaComponent } from './admin/azuriraj-korisnika/azuriraj-korisnika.component';
 import { LoginAdminComponent } from './admin/login-admin/login-admin.component';
+import { StatistikaVlasnikComponent } from './vlasnik/statistika-vlasnik/statistika-vlasnik.component';
+import { AuthGuard } from './auth.guard';
+import { RoleGuard } from './role.guard';
+import { PocetnaComponent } from './opste/pocetna/pocetna.component';
 
 export const routes: Routes = [
-    { path: 'registracija', component: RegistracijaComponent },
-    { path: 'login', component: LoginComponent},
-    { path: 'promenalozinke', component: PromenaLozinkeComponent },
+  { path: '', component: PocetnaComponent},
+  { path: 'registracija', component: RegistracijaComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'promenalozinke', component: PromenaLozinkeComponent },
 
-    { path: 'profil', component: ProfilComponent},
+  { path: 'profil', component: ProfilComponent, canActivate: [AuthGuard] },
 
-    { path: 'dodajvikendicu', component: DodajVikendicuComponent},
-    { path: 'mojevikendice', component: MojeVikendiceComponent},
-    { path: 'azurirajvikendicu/:id', component: AzurirajVikendicuComponent },
-    { path: 'rezervacijevlasnik', component:RezervacijeVlasnikComponent},
-    { path: 'rezervacijekalendar', component:RezervacijeKalendarComponent},
+  // vlasnik
+  { path: 'dodajvikendicu', component: DodajVikendicuComponent, canActivate: [RoleGuard], data: { roles: [1] } },
+  { path: 'mojevikendice', component: MojeVikendiceComponent, canActivate: [RoleGuard], data: { roles: [1] } },
+  { path: 'azurirajvikendicu/:id', component: AzurirajVikendicuComponent, canActivate: [RoleGuard], data: { roles: [1] } },
+  { path: 'rezervacijevlasnik', component: RezervacijeVlasnikComponent, canActivate: [RoleGuard], data: { roles: [1] } },
+  { path: 'rezervacijekalendar', component: RezervacijeKalendarComponent, canActivate: [RoleGuard], data: { roles: [1] } },
+  { path: 'statistika', component: StatistikaVlasnikComponent, canActivate: [RoleGuard], data: { roles: [1] } },
 
-    { path: 'vikendice', component: SveVikendiceComponent},
-    { path: 'vikendica/:id', component: VikendicaStranicaComponent},
-    { path: 'napravirezervaciju', component: NapraviRezervacijuComponent},
-    { path: 'rezervacijeturista', component: RezervacijeTuristaComponent},
+  // turista
+  { path: 'vikendice', component: SveVikendiceComponent, canActivate: [RoleGuard], data: { roles: [2] } },
+  { path: 'vikendica/:id', component: VikendicaStranicaComponent, canActivate: [RoleGuard], data: { roles: [2] } },
+  { path: 'napravirezervaciju', component: NapraviRezervacijuComponent, canActivate: [RoleGuard], data: { roles: [2] } },
+  { path: 'rezervacijeturista', component: RezervacijeTuristaComponent, canActivate: [RoleGuard], data: { roles: [2] } },
 
-    { path: 'admin/svizahtevi', component: ZahteviAdminComponent},
-    { path: 'admin/svikorisnici', component: KorisniciAdminComponent},
-    { path: 'admin/svevikendice', component: VikendiceAdminComponent},
-    { path: 'admin/azuriraj/:username', component: AzurirajKorisnikaComponent},
-    { path: 'admin/login', component: LoginAdminComponent}
-
-
+  // admin
+  { path: 'admin/svizahtevi', component: ZahteviAdminComponent, canActivate: [RoleGuard], data: { roles: [0] } },
+  { path: 'admin/svikorisnici', component: KorisniciAdminComponent, canActivate: [RoleGuard], data: { roles: [0] } },
+  { path: 'admin/svevikendice', component: VikendiceAdminComponent, canActivate: [RoleGuard], data: { roles: [0] } },
+  { path: 'admin/azuriraj/:username', component: AzurirajKorisnikaComponent, canActivate: [RoleGuard], data: { roles: [0] } },
+  { path: 'admin/login', component: LoginAdminComponent }
 ];

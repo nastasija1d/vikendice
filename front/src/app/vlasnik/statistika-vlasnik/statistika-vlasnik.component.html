@@ -1,0 +1,9 @@
+<h1 style="color: antiquewhite;">STATISTIKA</h1>
+<app-bar-chart></app-bar-chart>
+
+  <div class="row g-4" style="max-width: 1500px; margin: auto;">
+    <div class="col-12 col-md-6 col-lg-6 kontejner" *ngFor="let p of pieChartovi" style="justify-content: center;">
+        <h3 style="color: beige; text-align: center;">{{p.naziv}}</h3>
+        <app-pie-chart [brojRadni]="p.radniDani" [brojVikend]="p.vikendi"></app-pie-chart>
+    </div>
+  </div>
